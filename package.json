@@ -14,7 +14,8 @@
     "redux-form": "^8.2.0"
   },
   "scripts": {
-    "start": "react-scripts start : .env",
+    "dev": "react-scripts start : .env",
+    "start": "npm start : .env",
     "build": "react-scripts build : .env",
     "test": "react-scripts test : .env",
     "eject": "react-scripts eject : env"
