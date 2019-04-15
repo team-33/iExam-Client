@@ -20,13 +20,25 @@ export default class SignIn extends React.Component {
   render() {
       return(
           <div>
-            <GoogleLogin
-             clientId="15159349202-q9pb863s3noj04ceqp6k7q0tmrce77h4.apps.googleusercontent.com"
-             buttonText="Login"
-             onSuccess={responseGoogle}
-             onFailure={responseGoogle}
-             cookiePolicy={'single_host_origin'}
-            />
+            <div className="row">
+              <div className="col"></div>
+              <div className="col text-center">
+                <div className="card" style={{width:"18rem",margin:'auto',marginTop:"20px"}}>
+                  <div className="card-body">
+                    <h5 className="card-title">Login With Google</h5>
+                    <p className="card-text">One click login with google.</p>
+                      <GoogleLogin
+                       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                       buttonText="Login"
+                       onSuccess={responseGoogle}
+                       onFailure={responseGoogle}
+                       cookiePolicy={'single_host_origin'}
+                      />
+                </div>
+                </div>
+
+              </div>
+            </div>
           </div>
       )
   }
