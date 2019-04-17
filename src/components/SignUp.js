@@ -1,4 +1,3 @@
-
 import React from 'react';
 import GoogleLogin from 'react-google-login';
 import Paper from '@material-ui/core/Paper'
@@ -17,7 +16,7 @@ class SignUp extends React.Component {
   responseGoogle = async res => {
       await this.props.oauthGoogle(res.accessToken);
       if (!this.props.errorMessage) {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/');
       }
     }
 

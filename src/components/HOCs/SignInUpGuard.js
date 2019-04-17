@@ -7,7 +7,7 @@ export default (OriginalComponent) => {
 
     checkAuth() {
       if (this.props.isAuth && this.props.jwtToken) {
-        this.props.history.push('/');
+        this.props.history.push('/home');
       }
     }
 

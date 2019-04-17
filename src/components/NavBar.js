@@ -29,16 +29,11 @@ class NavBar extends React.Component {
                   <IconButton color='inherit' aria-label="Menu" style={{marginLeft: -20,marginRight: 0}}>
                     <MenuIcon/>
                   </IconButton>
-                  <Typography  color='inherit' variant="h5">
+                  <Typography  color='inherit' variant="h5" style={{flexGrow:1}}>
                     <Link className="navbar-brand"  to="/" style={{color:'white', textDecoration: 'none' }}>
                       iExamr
                     </Link>
                     </Typography>
-                    <div style={{flexGrow:1,marginLeft:10}}>
-                    <Link className="navbar-brand" to="/dashboard" style={{color:'white', textDecoration: 'none' }}>
-                      Dashboard
-                    </Link>
-                    </div>
 
                     { !this.props.isAuth ?
                     <Link className="nav-link" to="/signup" style={{color:'white', textDecoration: 'none' }}>
@@ -57,11 +52,9 @@ class NavBar extends React.Component {
                     : null }
 
                     { this.props.isAuth ?
-                    <Link className="nav-link" to="/signout" style={{color:'white', textDecoration: 'none' }}>
                       <Button color='inherit' onClick={this.signOut}>
                       Sign out
                       </Button>
-                    </Link>
                     : null }
 
                 </Toolbar>
