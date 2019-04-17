@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {BrowserRouter, Route} from "react-router-dom";
-import { createStore } from 'redux';
+import { createStore,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import Home from './components/Home';
@@ -11,20 +12,26 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import * as serviceWorker from './serviceWorker';
-import authGurd from './components/AuthManager';
 import reducers from './reducers';
+import authGuard from './components/HOCs/AuthGuard';
+import signInUpGuard from './components/HOCs/SignInUpGuard';
 
-localStorage.removeItem('jwt');
+const jwtToken = localStorage.getItem('JWT_TOKEN');
 axios.defaults.headers.common['Authorization'] = '';
 
 ReactDOM.render(
-    <Provider store={createStore(reducers,{})}>
+    <Provider store={createStore(reducers,{
+        auth:{
+          token:jwtToken,
+          isAuthenticated:jwtToken ? true : false
+        }
+      },applyMiddleware(reduxThunk))}>
       <BrowserRouter>
           <App>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/signup" component={SignUp}/>
-              <Route exact path="/signin" component={SignIn}/>
-              <Route exact path="/dashboard" component={authGurd(Dashboard)}/>
+              <Route exact path="/signup" component={signInUpGuard(SignUp)}/>
+              <Route exact path="/signin" component={signInUpGuard(SignIn)}/>
+              <Route exact path="/dashboard" component={authGuard(Dashboard)}/>
           </App>
       </BrowserRouter>
     </Provider>,
