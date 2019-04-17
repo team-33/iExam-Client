@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as homeActions from '../actions/home';
+import * as homeActions from '../actions/papers';
+import PaperPanel from './papers/PaperPanel';
 
 class Home extends React.Component {
 
@@ -15,8 +16,8 @@ class Home extends React.Component {
 
     render() {
         return(
-            <div>
-              Dashboard
+            <div >
+              <PaperPanel />
             </div>
         )
     }

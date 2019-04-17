@@ -7,12 +7,10 @@ import {
 
 export const getPapers = () =>{
   return async dispatch => {
-    console.log(axios.defaults.headers);
     const res = await axios.get( GET_PAPERS_API );
-    console.log(res);
     dispatch({
         type: PAPER_LIST,
-        payload: res.data.papers
+        payload: res.data
     });
   }
 }
