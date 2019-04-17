@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -14,6 +16,7 @@
     "redux-form": "^8.2.0"
   },
   "scripts": {
+    "dev": "react-scripts start : .env",
     "start": "react-scripts start : .env",
     "build": "react-scripts build : .env",
     "test": "react-scripts test : .env",
