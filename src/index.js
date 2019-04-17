@@ -18,7 +18,7 @@ import authGuard from './components/HOCs/AuthGuard';
 import signInUpGuard from './components/HOCs/SignInUpGuard';
 
 const jwtToken = localStorage.getItem('JWT_TOKEN');
-axios.defaults.headers.common['Authorization'] = '';
+axios.defaults.headers.common['Authorization'] = jwtToken;
 
 ReactDOM.render(
     <Provider store={createStore(reducers,{
