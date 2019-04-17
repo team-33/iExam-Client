@@ -3,22 +3,24 @@ import GoogleLogin from 'react-google-login';
 import axios from 'axios'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import {withRouter} from 'react-router';
 
 import {GOOGLE_SIGN_IN_API} from '../URL'
 
-const responseGoogle = (response) => {
-console.log(GOOGLE_SIGN_IN_API);
-console.log(process.env);
-axios.post(GOOGLE_SIGN_IN_API,{access_token: response.accessToken})
-.then((res) => {
-  console.log(res);
-}).catch((err) => {
-  console.log(err);
-})
+class SignIn extends React.Component {
+
+responseGoogle = response => {
+  axios.post(GOOGLE_SIGN_IN_API,{access_token: response.accessToken})
+  .then(async (res) => {
+    localStorage.setItem('jwt',res.data.token);
+    axios.defaults.headers.common['Authorization'] = res.data.token;
+    console.log(await axios.get('http://localhost:5000/auth/secret'));
+    this.props.history.push('/dashboard');
+  }).catch((err) => {
+    console.log(err);
+  })
 }
 
-
-export default class SignIn extends React.Component {
 
   render() {
       return(
@@ -35,36 +37,16 @@ export default class SignIn extends React.Component {
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseGoogle}
                   cookiePolicy={'single_host_origin'}
                   />
               </Paper>
             </Grid>
           </Grid>
         </div>
-
-          // <div style=>
-          //   <div className="row">
-          //     <div className="col"></div>
-          //     <div className="col text-center">
-          //       <div className="card" style={{width:"18rem",margin:'auto',marginTop:"20px"}}>
-          //         <div className="card-body">
-          //           <h5 className="card-title">Login With Google</h5>
-          //           <p className="card-text">One click login with google.</p>
-          //             <GoogleLogin
-          //              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-          //              buttonText="Login"
-          //              onSuccess={responseGoogle}
-          //              onFailure={responseGoogle}
-          //              cookiePolicy={'single_host_origin'}
-          //             />
-          //       </div>
-          //       </div>
-
-          //     </div>
-          //   </div>
-          // </div>
       )
   }
 }
+
+export default withRouter(SignIn);
