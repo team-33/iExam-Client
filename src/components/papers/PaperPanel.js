@@ -20,13 +20,20 @@ class PaperPanel extends React.Component {
             >
             <CircularProgress />
             </Fade>
-          <Grid container spacing={24}>
-              {this.props.papers.map( paper =>
-                <Grid key={paper._id} item xs={12} sm={6} md={3} lg={2}>
-                  <PaperCard paper={paper}/>
-                </Grid>
-            )}
-            </Grid>
+            <Fade
+              in={this.props.papers.length !== 0}
+              style={{
+              transitionDelay: this.props.papers.length !== 0 ? '800ms' : '0ms',
+              }}
+              unmountOnExit>
+              <Grid container spacing={24}>
+                  {this.props.papers.map( paper =>
+                    <Grid key={paper._id} item xs={12} sm={6} md={3} lg={2}>
+                      <PaperCard paper={paper}/>
+                    </Grid>
+                )}
+              </Grid>
+          </Fade>
           </div>
         )
     }
