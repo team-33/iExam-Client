@@ -1,35 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import {BrowserRouter, Route} from "react-router-dom";
-import { createStore } from 'redux';
+import {BrowserRouter, Route , Switch} from "react-router-dom";
+import { createStore,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import Home from './components/Home';
+import Index from './components/Index';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import * as serviceWorker from './serviceWorker';
-import authGurd from './components/AuthManager';
 import reducers from './reducers';
+import authGuard from './components/HOCs/AuthGuard';
+import signInUpGuard from './components/HOCs/SignInUpGuard';
 
-localStorage.removeItem('jwt');
-axios.defaults.headers.common['Authorization'] = '';
+const jwtToken = localStorage.getItem('JWT_TOKEN');
+axios.defaults.headers.common['Authorization'] = jwtToken;
 
 ReactDOM.render(
-    <Provider store={createStore(reducers,{})}>
+    <Provider store={createStore(reducers,{
+        auth:{
+          token:jwtToken,
+          isAuthenticated:jwtToken ? true : false
+        }
+      },applyMiddleware(reduxThunk))}>
       <BrowserRouter>
           <App>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/signup" component={SignUp}/>
-              <Route exact path="/signin" component={SignIn}/>
-              <Route exact path="/dashboard" component={authGurd(Dashboard)}/>
-          </App>
+            <Switch>
+              <Route exact path="/" component={signInUpGuard(Index)}/>
+              <Route exact path="/signup" component={signInUpGuard(SignUp)}/>
+              <Route exact path="/signin" component={signInUpGuard(SignIn)}/>
+              <Route exact path="/home" component={authGuard(Home)}/>
+              <Route exact={true} path="*" component={Dashboard}/>
+            </Switch>
+        </App>
       </BrowserRouter>
     </Provider>,
     document.getElementById('root'));
 
+    // <Route exact path="/dashboard" component={authGuard(Dashboard)}/>
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

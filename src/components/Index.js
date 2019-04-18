@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class SignIn extends React.Component {
+export default class Index extends React.Component {
     render() {
         return(
             <div>
-                sign in
+              welcome
             </div>
         )
     }

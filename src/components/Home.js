@@ -1,11 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component {
+import * as homeActions from '../actions/papers';
+import PaperPanel from './papers/PaperPanel';
+
+class Home extends React.Component {
+
+  componentDidMount() {
+    this.props.getPapers();
+  }
+
+  componentDidUpdate() {
+    this.props.getPapers();
+  }
+
     render() {
         return(
-            <div>
-                Home
+            <div >
+              <PaperPanel />
             </div>
         )
     }
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuth: state.auth.isAuthenticated
+  };
+}
+
+export default connect(mapStateToProps, homeActions)(Home);
