@@ -7,26 +7,27 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 
 import * as actions from '../actions';
 
 class NavBar extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.signOut = this.signOut.bind(this);
-  }
-
-  signOut() {
+  signOut = () => {
+    this.props.history.push('/');
     this.props.signOut();
   }
+
+  toggleDrawer = state => () => {
+    this.props.toggleDrawer(state);
+  };
 
     render() {
         return (
             <div style={{flexGrow:1,background:"#111111"}}>
               <AppBar position='static'>
                 <Toolbar>
-                  <IconButton color='inherit' aria-label="Menu" style={{marginLeft: -20,marginRight: 0}}>
+                  <IconButton color='inherit' aria-label="Menu" style={{marginLeft: -20,marginRight: 0}} onClick={this.toggleDrawer(true)}>
                     <MenuIcon/>
                   </IconButton>
                   <Typography  color='inherit' variant="h5" style={{flexGrow:1}}>
@@ -70,4 +71,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(NavBar);
+export default connect(mapStateToProps, actions)(withRouter(NavBar));
