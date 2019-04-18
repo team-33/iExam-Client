@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Dashboard extends React.Component {
+export default class NotFound extends React.Component {
     render() {
         return(
             <div style={{flexGrow:1,textAlign:'center'}}>

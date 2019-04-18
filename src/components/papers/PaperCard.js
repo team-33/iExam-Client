@@ -23,7 +23,7 @@ const style = {
 }
 
 class PaperCard extends React.Component {
-  
+
   render() {
     const { paper } = this.props
     return(
@@ -43,8 +43,8 @@ class PaperCard extends React.Component {
           </Badge>
         </div>
         <div style={{marginTop:15,marginBottom:15,display:'inline-flex',verticalAlign: 'middle'}}>
-            <Timer /> <span style={{lineHeight:'24px',margin:'0 10px 0 0'}}>{paper.minutes} minutes</span>
-            <Note /> <span style={{lineHeight:'24px',margin:'0 10px 0 0'}}>{paper.numberOfQuestions} questions</span>
+            <Timer style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.minutes} minutes</span>
+            <Note style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.numberOfQuestions} questions</span>
         </div>
         <LinesEllipsis
           text={paper.description}

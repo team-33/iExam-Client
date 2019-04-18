@@ -19,7 +19,8 @@ class NavBar extends React.Component {
   }
 
   toggleDrawer = state => () => {
-    this.props.toggleDrawer(state);
+    if(this.props.isAuth)
+      this.props.toggleDrawer(state);
   };
 
     render() {
