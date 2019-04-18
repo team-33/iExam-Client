@@ -19,12 +19,13 @@ class NavBar extends React.Component {
   }
 
   toggleDrawer = state => () => {
-    this.props.toggleDrawer(state);
+    if(this.props.isAuth)
+      this.props.toggleDrawer(state);
   };
 
     render() {
         return (
-            <div style={{flexGrow:1,background:"#111111"}}>
+            <div style={{flexGrow:1}}>
               <AppBar position='static'>
                 <Toolbar>
                   <IconButton color='inherit' aria-label="Menu" style={{marginLeft: -20,marginRight: 0}} onClick={this.toggleDrawer(true)}>

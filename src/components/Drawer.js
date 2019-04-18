@@ -7,7 +7,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Note from '@material-ui/icons/Note';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import * as actions from '../actions';
 
@@ -22,6 +24,12 @@ class Drawer extends React.Component {
     const sideList = (
       <div style={{width:250}}>
         <List>
+          <Link to='/papers' style={{textDecoration:'none'}}>
+          <ListItem button key='papers'>
+            <ListItemIcon><Note/></ListItemIcon>
+            <ListItemText primary='Papers'/>
+          </ListItem>
+        </Link>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
@@ -65,6 +73,7 @@ class Drawer extends React.Component {
 function mapStateToProps(state) {
   return {
     isOpen: state.app.isDrawerOpen,
+    isAuth: state.auth.isAuthenticated
   };
 }
 
