@@ -13,6 +13,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Papers from './components/papers/Papers';
+import Paper from './components/papers/Paper';
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers';
 import authGuard from './components/HOCs/AuthGuard';
@@ -36,6 +37,7 @@ ReactDOM.render(
               <Route exact path="/signin" component={signInUpGuard(SignIn)}/>
               <Route exact path="/home" component={authGuard(Home)}/>
               <Route exact path="/papers" component={authGuard(Papers)}/>
+              <Route exact path="/paper/:subject/:year" component={authGuard(Paper)}/>
               <Route exact={true} path="*" component={NotFound}/>
             </Switch>
         </App>

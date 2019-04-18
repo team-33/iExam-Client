@@ -9,10 +9,8 @@ import PaperCard from './PaperCard';
 class PaperPanel extends React.Component {
 
     render() {
-      console.log(this.props.papers.length);
         return(
           <div style={{marginTop:15,textAlign:'center'}}>
-            <h3>New Paper</h3>
               <Fade
               in={this.props.papers.length === 0}
               style={{
@@ -37,7 +35,7 @@ class PaperPanel extends React.Component {
 function mapStateToProps(state) {
   return {
     isAuth: state.auth.isAuthenticated,
-    papers: state.papers.papers
+    papers: state.papers.papers,
   };
 }
 

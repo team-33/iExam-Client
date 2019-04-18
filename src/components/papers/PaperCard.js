@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Rating from 'material-ui-rating';
 import Paper from '@material-ui/core/Paper';
@@ -25,35 +26,37 @@ const style = {
 class PaperCard extends React.Component {
 
   render() {
-    const { paper } = this.props
+    const { paper } = this.props;
     return(
-      <Paper style={style.root}>
-        <b><p>{paper.subject} - {paper.year}</p></b>
-        <Rating
-        value={paper.rating}
-        max={5}
-        readOnly={true}
-        />
-        <div style={{marginTop:15}}>
-          <Badge color='secondary' style={{right:-3,marginRight:20}} badgeContent={paper.likes} max={99}>
-            <ThumbUp style={style.thumb}/>
-          </Badge>
-          <Badge color='secondary' style={{right:-3,marginLeft:20}} badgeContent={paper.dislikes} max={99}>
-            <ThumbDown style={style.thumb}/>
-          </Badge>
-        </div>
-        <div style={{marginTop:15,marginBottom:15,display:'inline-flex',verticalAlign: 'middle'}}>
-            <Timer style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.minutes} minutes</span>
-            <Note style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.numberOfQuestions} questions</span>
-        </div>
-        <LinesEllipsis
-          text={paper.description}
-          maxLine='3'
-          ellipsis='...'
-          trimRight
-          basedOn='letters'
+      <Link to={'/paper/' + paper.subject + '/' + paper.year} style={{textDecoration:'none',color:'black'}} query={paper}>
+        <Paper style={style.root}>
+          <b><p>{paper.subject} - {paper.year}</p></b>
+          <Rating
+          value={paper.rating}
+          max={5}
+          readOnly={true}
           />
-      </Paper>
+          <div style={{marginTop:15}}>
+            <Badge color='secondary' style={{right:-3,marginRight:20}} badgeContent={paper.likes} max={99}>
+              <ThumbUp style={style.thumb}/>
+            </Badge>
+            <Badge color='secondary' style={{right:-3,marginLeft:20}} badgeContent={paper.dislikes} max={99}>
+              <ThumbDown style={style.thumb}/>
+            </Badge>
+          </div>
+          <div style={{marginTop:15,marginBottom:15,display:'inline-flex',verticalAlign: 'middle'}}>
+              <Timer style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.minutes} minutes</span>
+              <Note style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.numberOfQuestions} questions</span>
+          </div>
+          <LinesEllipsis
+            text={paper.description}
+            maxLine='3'
+            ellipsis='...'
+            trimRight
+            basedOn='letters'
+            />
+        </Paper>
+      </Link>
     )
   }
 }
