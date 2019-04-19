@@ -6,8 +6,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeIcon from '@material-ui/icons/Home';
 import MailIcon from '@material-ui/icons/Mail';
-import Note from '@material-ui/icons/Note';
+import NoteIcon from '@material-ui/icons/Note';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -24,12 +25,18 @@ class Drawer extends React.Component {
     const sideList = (
       <div style={{width:250}}>
         <List>
+          <Link to='/home' style={{textDecoration:'none'}}>
+            <ListItem button key='home'>
+              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemText primary='Home'/>
+            </ListItem>
+          </Link>
           <Link to='/papers' style={{textDecoration:'none'}}>
-          <ListItem button key='papers'>
-            <ListItemIcon><Note/></ListItemIcon>
-            <ListItemText primary='Papers'/>
-          </ListItem>
-        </Link>
+            <ListItem button key='papers'>
+              <ListItemIcon><NoteIcon /></ListItemIcon>
+              <ListItemText primary='Papers'/>
+            </ListItem>
+          </Link>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
