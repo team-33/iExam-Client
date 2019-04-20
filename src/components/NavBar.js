@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router-dom'
 
 import * as actions from '../actions';
 
@@ -51,12 +51,6 @@ class NavBar extends React.Component {
                       Sign in
                       </Button>
                     </Link>
-                    : null }
-
-                    { this.props.isAuth ?
-                      <Button color='inherit' onClick={this.signOut}>
-                      Sign out
-                      </Button>
                     : null }
 
                 </Toolbar>
