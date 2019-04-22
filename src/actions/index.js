@@ -4,8 +4,12 @@ import {
   AUTH_SIGN_UP,
   AUTH_SIGN_OUT,
   TOGGLE_DRAWER,
+  AUTH_USER,
 } from './types';
-  import {GOOGLE_SIGN_IN_API} from '../URL';
+  import {
+    GOOGLE_SIGN_IN_API,
+    GET_USER_PROFILE_DATA,
+  } from '../URL';
 
 export const oauthGoogle = data =>{
   return async dispatch => {
@@ -21,7 +25,7 @@ export const oauthGoogle = data =>{
         payload: res.data.token
     });
   }
-}
+};
 
 export const signOut = () => {
   return dispatch => {
@@ -33,7 +37,7 @@ export const signOut = () => {
       payload: ''
     })
   };
-}
+};
 
 export const toggleDrawer = state => {
   return dispatch => {
@@ -43,4 +47,17 @@ export const toggleDrawer = state => {
       payload: state,
     })
   };
-}
+};
+
+export const getUser = () => {
+  return async dispatch => {
+
+    const res = await axios.get(GET_USER_PROFILE_DATA);
+
+    dispatch({
+      type: AUTH_USER,
+      payload: res.data,
+    })
+  };
+};
+

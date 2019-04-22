@@ -6,10 +6,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+
 import HomeIcon from '@material-ui/icons/Home';
 import MailIcon from '@material-ui/icons/Mail';
 import NoteIcon from '@material-ui/icons/Note';
 import ExitIcon from '@material-ui/icons/ExitToApp';
+import ProfileIcon from '@material-ui/icons/Person';
+
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -41,6 +44,13 @@ class Drawer extends React.Component {
                         <ListItem button key='papers'>
                             <ListItemIcon><NoteIcon/></ListItemIcon>
                             <ListItemText primary='Papers'/>
+                        </ListItem>
+                    </Link>
+
+                    <Link to='/users/profile' style={{textDecoration: 'none'}}>
+                        <ListItem button key='profile'>
+                            <ListItemIcon><ProfileIcon/></ListItemIcon>
+                            <ListItemText primary='My profile'/>
                         </ListItem>
                     </Link>
 

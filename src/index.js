@@ -46,7 +46,7 @@ ReactDOM.render(
                     <Route exact path="/paper/:subject/:year" component={authGuard(Paper)}/>
                     <Route exact path="/papers/new" component={authGuard(NewPaper)}/>
 
-                    <Route exact path="/profile" component={authGuard(Profile)}/>
+                    <Route exact path="/users/profile" component={authGuard(Profile)}/>
 
                     <Route exact={true} path="*" component={NotFound}/>
                 </Switch>

@@ -1,11 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Paper from '@material-ui/core/Paper';
+import * as actions from "../../actions";
 
 class Profile extends React.Component {
 
+    componentDidMount() {
+        this.props.getUser();
+    }
+    componentDidUpdate() {
+        // this.props.getUser();
+    }
+
     render() {
+        console.log(this.props.profile);
         return(
             <div>
 
@@ -14,4 +21,11 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+    return {
+        isAuth: state.auth.isAuthenticated,
+        profile:state.auth.user,
+    };
+}
+
+export default connect(mapStateToProps, actions)(Profile);
