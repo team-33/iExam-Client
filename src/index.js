@@ -15,7 +15,7 @@ import NotFound from './components/NotFound';
 
 import Papers from './components/papers/Papers';
 import Paper from './components/papers/Paper';
-import NewPaper from './components/papers/NewPaper';
+import NewPaper from './components/papers/new-paper/NewPaper';
 
 import Profile from './components/profile/Profile';
 
@@ -31,7 +31,7 @@ ReactDOM.render(
     <Provider store={createStore(reducers, {
         auth: {
             token: jwtToken,
-            isAuthenticated: jwtToken ? true : false
+            isAuthenticated: !!jwtToken
         }
     }, applyMiddleware(reduxThunk))}>
         <BrowserRouter>
@@ -43,7 +43,7 @@ ReactDOM.render(
                     <Route exact path="/home" component={authGuard(Home)}/>
 
                     <Route exact path="/papers" component={authGuard(Papers)}/>
-                    <Route exact path="/paper/:subject/:year" component={authGuard(Paper)}/>
+                    <Route exact path="/papers/:subject/:year" component={authGuard(Paper)}/>
                     <Route exact path="/papers/new" component={authGuard(NewPaper)}/>
 
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>

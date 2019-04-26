@@ -7,9 +7,6 @@ class Profile extends React.Component {
     componentDidMount() {
         this.props.getUser();
     }
-    componentDidUpdate() {
-        // this.props.getUser();
-    }
 
     render() {
         console.log(this.props.profile);

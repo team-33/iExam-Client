@@ -28,7 +28,7 @@ class PaperCard extends React.Component {
   render() {
     const { paper } = this.props;
     return(
-      <Link to={'/paper/' + paper.subject + '/' + paper.year} style={{textDecoration:'none',color:'black'}} query={paper}>
+      <Link to={'/papers/' + paper.subject + '/' + paper.year} style={{textDecoration:'none',color:'black'}} query={paper}>
         <Paper style={style.root}>
           <b><p>{paper.subject} - {paper.year}</p></b>
           <Rating

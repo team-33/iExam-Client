@@ -14,7 +14,7 @@ class Paper extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     var { subject , year } = this.props.match.params;
     //TODO: get paper from server
     //paper details and answers

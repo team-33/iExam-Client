@@ -4,7 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-import * as paperActions from '../../actions/papers';
+import * as paperActions from '../../../actions/papers';
+import {Divider, Typography} from "@material-ui/core";
+import QuestionsPanel from "./QuestionsPanel";
 
 const style = {
     root: {
@@ -17,8 +19,13 @@ const style = {
         boxShadow: '3px 3px 5px gray'
     },
     formTitle: {
-        fontSize: '22px',
+        fontSize: '24px',
         textAlign: 'center'
+    },
+    formSubTitle: {
+        fontSize: '20px',
+        textAlign: 'center',
+        marginBottom: 8
     },
     input: {
 
@@ -48,6 +55,7 @@ class NewPaper extends React.Component {
         likes: Math.floor(Math.random() * 51),
         dislikes: Math.floor(Math.random() * 30),
         rating: (Math.random() * 5.0).toFixed(2),
+        questions:[]
     };
 
     onSubmit = async event => {
@@ -63,11 +71,16 @@ class NewPaper extends React.Component {
                 likes: Math.floor(Math.random() * 51),
                 dislikes: Math.floor(Math.random() * 30),
                 rating: (Math.random() * 5.0).toFixed(2),
+                questions:[]
             });
             this.props.history.push('/papers');
         } else {
             alert(this.props.error);
         }
+    };
+
+    onAddQuestion = () => () => {
+      console.log("here");
     };
 
     onChangeText = async event => {
@@ -87,7 +100,10 @@ class NewPaper extends React.Component {
 
                         {/*heading*/}
                         <div style={style.formTitle}>Insert New Paper</div>
-                        <br/><br/>
+                        <br/>
+
+                        {/*sub title - paper descriptions*/}
+                        <div style={style.formSubTitle}>Details</div>
 
                         <Grid container spacing={24}>
                             {/*subject*/}
@@ -108,7 +124,7 @@ class NewPaper extends React.Component {
                                 <span style={style.inputTitle}>Year: </span>
                             </Grid>
                             <Grid item lg={4} md={4} sm={4} xs={4}>
-                                <select name='year' style={style.inputSelect} value={this.state.year}
+                                <select name='year' style={style.inputSelect} value={new Date().getFullYear()}
                                         onChange={this.onChangeNumber}>
                                     {
                                         new Array(new Date().getFullYear() + 1 - 1990).fill().map((d, i) =>
@@ -170,6 +186,15 @@ class NewPaper extends React.Component {
                             </Grid>
                         </Grid>
                         <br/>
+
+                        <Divider/>
+                        <br/>
+
+                        {/*sub title - Questions*/}
+                        <Typography style={style.formSubTitle}>Questions</Typography>
+
+                        <QuestionsPanel numberOfQuestions={this.state.numberOfQuestions}/>
+
                         <div style={{textAlign:'center'}}>
                             <Button variant='contained' type='submit' color='primary'>
                                 Insert Paper
