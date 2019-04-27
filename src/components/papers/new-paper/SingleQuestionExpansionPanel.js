@@ -6,6 +6,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
+import {Input} from "@material-ui/core";
 
 const styles = {
     heading: {
@@ -21,12 +22,16 @@ const styles = {
 
 class SingleQuestionExpansionPanel extends React.Component {
 
+    state = {
+      rand : this.props.panel
+    };
+
     render() {
         const {expanded,panel} = this.props;
         return (
             <ExpansionPanel expanded={expanded === panel} onChange={this.props.handleChange(panel)}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                    <Typography style={styles.heading}>General settings</Typography>
+                    <Typography style={styles.heading}>General settings {this.state.rand}</Typography>
                     <Typography style={styles.secondaryHeading}>I am an expansion panel</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
@@ -34,6 +39,7 @@ class SingleQuestionExpansionPanel extends React.Component {
                         Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
                         maximus est, id dignissim quam.
                     </Typography>
+                    <input type='text'/>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
