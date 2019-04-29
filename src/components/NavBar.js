@@ -10,8 +10,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 import * as actions from '../actions';
+import {Avatar} from "@material-ui/core";
 
 class NavBar extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.props.getUser();
+    }
 
   signOut = () => {
     this.props.history.push('/');
@@ -53,6 +59,10 @@ class NavBar extends React.Component {
                     </Link>
                     : null }
 
+                    { this.props.isAuth ?
+                        <Avatar src={this.props.user.photo}/>
+                        : null }
+
                 </Toolbar>
               </AppBar>
             </div>
@@ -62,7 +72,8 @@ class NavBar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isAuth: state.auth.isAuthenticated
+    isAuth: state.auth.isAuthenticated,
+    user: state.auth.user,
   };
 }
 

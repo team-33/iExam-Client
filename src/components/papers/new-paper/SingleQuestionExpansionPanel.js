@@ -39,6 +39,8 @@ class SingleQuestionExpansionPanel extends React.Component {
                         Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
                         maximus est, id dignissim quam.
                     </Typography>
+                    <input type='text'/><br/>
+                    <input type='text'/><br/>
                     <input type='text'/>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
