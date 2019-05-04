@@ -1,6 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from "../../actions";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Avatar from "@material-ui/core/Avatar";
+import {Typography} from "@material-ui/core";
+
+const styles = {
+    avatar: {
+        width: '70px',
+        height: '70px',
+    },
+    paper: {
+        padding: '20px 10px'
+    }
+};
 
 class Profile extends React.Component {
 
@@ -9,11 +23,18 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log(this.props.profile);
-        return(
-            <div>
-
-            </div>
+        const {profile} = this.props;
+        return (
+            <Grid container>
+                <Grid item xs={2}/>
+                <Grid item xs={8}>
+                    <Paper style={styles.paper}>
+                            <Avatar style={styles.avatar} src={profile.photo}/>
+                            Hiranth
+                    </Paper>
+                </Grid>
+                <Grid item xs={2}/>
+            </Grid>
         );
     }
 }
@@ -21,7 +42,7 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
     return {
         isAuth: state.auth.isAuthenticated,
-        profile:state.auth.user,
+        profile: state.auth.user,
     };
 }
 
