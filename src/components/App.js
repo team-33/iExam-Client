@@ -9,7 +9,7 @@ export default class App extends React.Component{
             <div>
                 <NavBar />
                 <Drawer />
-                <div style={{height:60}}/>
+                <div style={{height:65}}/>
                 {this.props.children}
             </div>
         );

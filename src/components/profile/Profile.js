@@ -1,37 +1,52 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actions from "../../actions";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
-import {Typography} from "@material-ui/core";
+import {Card, CardHeader, CircularProgress, IconButton} from "@material-ui/core";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const styles = {
-    avatar: {
-        width: '70px',
-        height: '70px',
-    },
-    paper: {
-        padding: '20px 10px'
-    }
-};
+import * as actions from "../../actions";
+import Fade from "@material-ui/core/Fade";
+import {object} from "prop-types";
 
 class Profile extends React.Component {
 
-    componentDidMount() {
-        this.props.getUser();
-    }
+    state ={
+        align:'center',
+    };
 
     render() {
         const {profile} = this.props;
         return (
             <Grid container>
                 <Grid item xs={2}/>
-                <Grid item xs={8}>
-                    <Paper style={styles.paper}>
-                            <Avatar style={styles.avatar} src={profile.photo}/>
-                            Hiranth
-                    </Paper>
+                <Grid item xs={8} style={{textAlign: this.state.align}}>
+
+                    <Fade
+                        in={profile.email === undefined}
+                        unmountOnExit
+                        onExited={() => this.setState({align:'left'})}
+                        >
+                        <CircularProgress/>
+                    </Fade>
+
+                    <Fade in={profile.email !== undefined}
+                          style={{
+                              transitionDelay: profile.email !== undefined ? '800ms' : '0ms',
+                          }}>
+                        <Card>
+                            <CardHeader
+                                avatar={<Avatar src={profile.photo}/>}
+                                action={
+                                    <IconButton>
+                                        <MoreVertIcon/>
+                                    </IconButton>
+                                }
+                                title={profile.given_name + ' ' + profile.family_name}
+                                subheader={profile.email}
+                            />
+                        </Card>
+                    </Fade>
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>

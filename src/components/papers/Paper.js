@@ -25,7 +25,7 @@ class Paper extends React.Component {
 
   render() {
     var { paper } = this.state;
-    console.log(paper)
+    console.log(paper);
       return(
         <div>
           <Fade

@@ -3,8 +3,6 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import LinesEllipsis from 'react-lines-ellipsis'
-import Timer from '@material-ui/icons/Timer';
-import Note from '@material-ui/icons/Note';
 import {Divider, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Rating from "react-star-rating-lite";
@@ -27,7 +25,7 @@ const styles = {
     dataPanel:{
         paddingTop:20,
         paddingBottom:3,
-        background:'white'
+        background:'linear-gradient(#fff0,#fff)',
     }
 };
 

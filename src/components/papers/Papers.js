@@ -21,7 +21,7 @@ class Papers extends React.Component {
               <div style={{textAlign:'right'}}>
                   <Link to='/papers/new'>Add new Paper</Link>
               </div>
-            <PaperPanel />
+            <PaperPanel full={true}/>
           </div>
       )
   }
