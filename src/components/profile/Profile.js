@@ -7,7 +7,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import * as actions from "../../actions";
 import Fade from "@material-ui/core/Fade";
-import {object} from "prop-types";
 
 class Profile extends React.Component {
 

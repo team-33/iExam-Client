@@ -56,7 +56,7 @@ export const getUser = () => {
     return async dispatch => {
         const userRes = await axios.get(GET_USER_PROFILE_DATA);
 
-        localStorage.setItem('USER', userRes.data);
+        await localStorage.setItem('USER', userRes.data);
         dispatch({
             type: AUTH_USER,
             payload: userRes.data,

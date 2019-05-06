@@ -44,6 +44,7 @@ class NavBar extends React.Component {
     };
 
     render() {
+        console.log(this.props);
         return (
             <div style={{flexGrow: 1}}>
                 <AppBar position='fixed'>
