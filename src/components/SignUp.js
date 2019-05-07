@@ -15,7 +15,7 @@ class SignUp extends React.Component {
 
   responseGoogle = async res => {
       await this.props.oauthGoogle(res.accessToken);
-      if (!this.props.errorMessage) {
+      if (!this.props.errorMessage && this.props.errorMessage !== '') {
         this.props.history.push('/');
       }
     }
@@ -34,7 +34,7 @@ class SignUp extends React.Component {
                 </h4>
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                  buttonText="Login"
+                  buttonText="Signup with Google"
                   onSuccess={this.responseGoogle}
                   onFailure={this.responseGoogle}
                   cookiePolicy={'single_host_origin'}

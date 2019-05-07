@@ -20,12 +20,19 @@ export const oauthGoogle = data => {
         localStorage.setItem('JWT_TOKEN', res.data.token);
         axios.defaults.headers.common['Authorization'] = res.data.token;
 
-        dispatch({
+        await dispatch({
             type: AUTH_SIGN_UP,
             payload: res.data.token
         });
 
-        getUser();
+        const userRes = await axios.get(GET_USER_PROFILE_DATA);
+
+        await localStorage.setItem('USER', JSON.stringify(userRes.data));
+
+        await dispatch({
+            type: AUTH_USER,
+            payload: userRes.data,
+        });
     }
 };
 
@@ -37,6 +44,11 @@ export const signOut = () => {
 
         dispatch({
             type: AUTH_SIGN_OUT,
+            payload: ''
+        });
+
+        dispatch({
+            type: AUTH_USER,
             payload: ''
         })
     };

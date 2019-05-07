@@ -20,14 +20,9 @@ const styles = {
 
 class NavBar extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.props.getUser();
-    }
-
     signOut = () => {
-        this.props.history.push('/');
         this.props.signOut();
+        // this.props.history.push('/');
     };
 
     toggleDrawer = state => () => {
@@ -44,7 +39,6 @@ class NavBar extends React.Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <div style={{flexGrow: 1}}>
                 <AppBar position='fixed'>
@@ -77,7 +71,7 @@ class NavBar extends React.Component {
                             </Link>
                             : null}
 
-                        {this.props.isAuth ?
+                        {this.props.isAuth && this.props.user ?
                             <Avatar src={this.props.user.photo}/>
                             : null}
 

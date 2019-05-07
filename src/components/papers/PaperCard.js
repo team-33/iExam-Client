@@ -22,10 +22,10 @@ const styles = {
         padding: 3,
         color: 'white',
     },
-    dataPanel:{
-        paddingTop:20,
-        paddingBottom:3,
-        background:'linear-gradient(#fff0,#fff)',
+    dataPanel: {
+        paddingTop: 20,
+        paddingBottom: 3,
+        background: 'linear-gradient(#fff0,#fff)',
     }
 };
 
@@ -33,6 +33,8 @@ class PaperCard extends React.Component {
 
     state = {
         paperHover: false,
+        liked: Math.floor(Math.random() * 2),
+        disliked: 0,
     };
 
     onCardClick = e => {
@@ -47,7 +49,7 @@ class PaperCard extends React.Component {
 
     render() {
         const {paper} = this.props;
-        const {paperHover} = this.state;
+        const {paperHover, liked, disliked} = this.state;
         return (
             <Paper
                 style={{
@@ -62,7 +64,6 @@ class PaperCard extends React.Component {
                 <div style={styles.title}>
                     {paper.subject} - {paper.year}
                 </div>
-
                 <div>
                     <Grid container style={styles.dataPanel}>
                         <Grid item xs={8}>
@@ -78,29 +79,30 @@ class PaperCard extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography color={"primary"}>
-                                Likes ({paper.likes})
+                            <Typography color={"primary"} style={{fontWeight: liked===1 ? 'bold' : 'none'}}>
+                                {liked ? 'Liked' : 'likes'} ({paper.likes})
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography color={"secondary"}>
+                            <Typography color={"secondary"} style={{fontWeight: liked!==1 ? 'bold' : 'none'}}>
                                 Dislikes ({paper.dislikes})
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Divider style={{margin:'0px 5px'}}/>
+                    <Divider style={{margin: '0px 5px'}}/>
                     <br/>
                     <Typography style={{color: 'grey', fontWeight: 'bold'}}>
                         {paper.minutes} minutes | {paper.numberOfQuestions} Questions
                     </Typography>
                     <LinesEllipsis
                         text={paper.description}
-                        style={{textAlign:'left',padding:10}}
+                        style={{textAlign: 'left', padding: 10}}
                         maxLine='3'
                         ellipsis='...'
                         trimRight
                         basedOn='letters'
                     />
+
                 </div>
             </Paper>
         )
