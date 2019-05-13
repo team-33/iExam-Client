@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import SingleQuestionExpansionPanel from "./SingleQuestionExpansionPanel";
+import SingleQuestionExpansionPanel from "./single-question/SingleQuestionExpansionPanel";
 import {Button, Paper} from "@material-ui/core";
 
 import AddIcon from "@material-ui/icons/Add";
@@ -20,7 +20,7 @@ class QuestionsPanel extends React.Component {
     state = {
         expanded: 0,
         numberOfQuestions: this.props.numberOfQuestions,
-        currentPanels: 0,
+        currentPanels: 1,
     };
 
     componentWillReceiveProps(nextProps, nextContext) {

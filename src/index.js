@@ -33,7 +33,7 @@ ReactDOM.render(
         auth: {
             token: jwtToken,
             isAuthenticated: !!jwtToken,
-            user:user,
+            user: user,
         }
     }, applyMiddleware(reduxThunk))}>
         <BrowserRouter>
@@ -57,8 +57,4 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root'));
 
-// <Route exact path="/dashboard" component={authGuard(Dashboard)}/>
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
