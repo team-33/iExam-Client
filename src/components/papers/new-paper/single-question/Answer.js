@@ -6,7 +6,7 @@ import Switch from "@material-ui/core/Switch";
 
 import conveter from '../../../HOCs/converter';
 
-class Question extends React.Component {
+class Answer extends React.Component {
 
     state = {
         text: '',
@@ -43,6 +43,7 @@ class Question extends React.Component {
     };
 
     render() {
+        const {number} = this.props;
         return (
             <div style={{textAlign: 'right', flexGrow: 1}}>
                 <FormControlLabel
@@ -62,7 +63,7 @@ class Question extends React.Component {
                 >
                     <TextField
                         fullWidth
-                        label={'Question text'}
+                        label={`Answer ${number + 1} text`}
                         required
                         variant={"outlined"}
                         value={this.state.text}
@@ -82,4 +83,4 @@ function mapStateToProps(state) {
     return {};
 }
 
-export default connect(mapStateToProps, null)(Question);
+export default connect(mapStateToProps, null)(Answer);

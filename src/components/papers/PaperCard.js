@@ -49,7 +49,7 @@ class PaperCard extends React.Component {
 
     render() {
         const {paper} = this.props;
-        const {paperHover, liked, disliked} = this.state;
+        const {paperHover, liked,} = this.state;
         return (
             <Paper
                 style={{

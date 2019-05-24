@@ -18,6 +18,7 @@ import Paper from './components/papers/Paper';
 import NewPaper from './components/papers/new-paper/NewPaper';
 
 import Profile from './components/profile/Profile';
+import ProfileSettings from './components/profile/ProfileSettings';
 
 import * as serviceWorker from './serviceWorker';
 import reducers from './reducers';
@@ -49,6 +50,7 @@ ReactDOM.render(
                     <Route exact path="/papers/new" component={authGuard(NewPaper)}/>
 
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>
+                    <Route exact path="/users/profile/settings" component={authGuard(ProfileSettings)}/>
 
                     <Route exact={true} path="*" component={NotFound}/>
                 </Switch>
