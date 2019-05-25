@@ -5,10 +5,14 @@ import {
     AUTH_SIGN_OUT,
     TOGGLE_DRAWER,
     AUTH_USER,
+    AUTH_ERROR,
+    AUTH_SIGN_IN,
 } from './types';
 import {
     GOOGLE_SIGN_IN_API,
     GET_USER_PROFILE_DATA,
+    LOCAL_SIGN_IN_API,
+    LOCAL_SIGN_UP_API,
 } from '../URL';
 
 export const oauthGoogle = data => {
@@ -35,6 +39,48 @@ export const oauthGoogle = data => {
         });
     }
 };
+
+export const signUp = data => {
+    return async dispatch => {
+        try {
+            const res = await axios.post(LOCAL_SIGN_UP_API, data);
+
+            dispatch({
+                type: AUTH_SIGN_UP,
+                payload: res.data.token
+            });
+
+            localStorage.setItem('JWT_TOKEN', res.data.token);
+            axios.defaults.headers.common['Authorization'] = res.data.token;
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: 'Email is already in use'
+            })
+        }
+    };
+}
+
+export const signIn = data => {
+    return async dispatch => {
+        try {
+            const res = await axios.post(LOCAL_SIGN_IN_API, data);
+
+            dispatch({
+                type: AUTH_SIGN_IN,
+                payload: res.data.token
+            });
+
+            localStorage.setItem('JWT_TOKEN', res.data.token);
+            axios.defaults.headers.common['Authorization'] = res.data.token;
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: 'Email and password combination isn\'t valid'
+            })
+        }
+    };
+}
 
 export const signOut = () => {
     return dispatch => {
