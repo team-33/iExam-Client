@@ -43,15 +43,26 @@ export const oauthGoogle = data => {
 export const signUp = data => {
     return async dispatch => {
         try {
+
             const res = await axios.post(LOCAL_SIGN_UP_API, data);
 
+            localStorage.setItem('JWT_TOKEN', res.data.token);
+
+            axios.defaults.headers.common['Authorization'] = res.data.token;
             dispatch({
                 type: AUTH_SIGN_UP,
                 payload: res.data.token
             });
 
-            localStorage.setItem('JWT_TOKEN', res.data.token);
-            axios.defaults.headers.common['Authorization'] = res.data.token;
+            const userRes = await axios.get(GET_USER_PROFILE_DATA);
+
+            await localStorage.setItem('USER', JSON.stringify(userRes.data));
+
+            await dispatch({
+                type: AUTH_USER,
+                payload: userRes.data,
+            });
+
         } catch (err) {
             dispatch({
                 type: AUTH_ERROR,
