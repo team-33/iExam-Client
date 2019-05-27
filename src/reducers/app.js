@@ -9,7 +9,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
     case TOGGLE_DRAWER:
-      return { ...state, isDrawerOpen: action.payload }
+      return { ...state, isDrawerOpen: action.payload };
     default:
       return state
   }

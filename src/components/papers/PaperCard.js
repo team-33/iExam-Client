@@ -1,70 +1,118 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { connect } from 'react-redux';
-import Rating from 'material-ui-rating';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
-import Badge from '@material-ui/core/Badge';
 import LinesEllipsis from 'react-lines-ellipsis'
-import ThumbUp from '@material-ui/icons/ThumbUpRounded';
-import ThumbDown from '@material-ui/icons/ThumbDownRounded';
-import Timer from '@material-ui/icons/Timer';
-import Note from '@material-ui/icons/Note';
+import {Divider, Typography} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Rating from "react-star-rating-lite";
 
-const style = {
-  root:{
-    textAlign:"center",
-    padding:1,
-    height:300
-  },
-  thumb:{
-    color:'#003a99',
-    width:30,
-    height:30,
-  },
-}
+const styles = {
+    root: {
+        height: 300,
+        borderRadius: '3px 15px 3px 15px',
+        cursor: 'pointer',
+        background: '#f3f3f3',
+    },
+    title: {
+        boxShadow: 'grey 0px 5px 10px',
+        borderRadius: '3px 15px 0px 0px',
+        background: '#5b5b5b',
+        fontSize: 18,
+        padding: 3,
+        color: 'white',
+    },
+    dataPanel: {
+        paddingTop: 20,
+        paddingBottom: 3,
+        background: 'linear-gradient(#fff0,#fff)',
+    }
+};
 
 class PaperCard extends React.Component {
 
-  render() {
-    const { paper } = this.props;
-    return(
-      <Link to={'/paper/' + paper.subject + '/' + paper.year} style={{textDecoration:'none',color:'black'}} query={paper}>
-        <Paper style={style.root}>
-          <b><p>{paper.subject} - {paper.year}</p></b>
-          <Rating
-          value={paper.rating}
-          max={5}
-          readOnly={true}
-          />
-          <div style={{marginTop:15}}>
-            <Badge color='secondary' style={{right:-3,marginRight:20}} badgeContent={paper.likes} max={99}>
-              <ThumbUp style={style.thumb}/>
-            </Badge>
-            <Badge color='secondary' style={{right:-3,marginLeft:20}} badgeContent={paper.dislikes} max={99}>
-              <ThumbDown style={style.thumb}/>
-            </Badge>
-          </div>
-          <div style={{marginTop:15,marginBottom:15,display:'inline-flex',verticalAlign: 'middle'}}>
-              <Timer style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.minutes} minutes</span>
-              <Note style={{color:'gray'}}/> <span style={{lineHeight:'24px',margin:'0 10px 0 0',color:'gray'}}>{paper.numberOfQuestions} questions</span>
-          </div>
-          <LinesEllipsis
-            text={paper.description}
-            maxLine='3'
-            ellipsis='...'
-            trimRight
-            basedOn='letters'
-            />
-        </Paper>
-      </Link>
-    )
-  }
+    state = {
+        paperHover: false,
+        liked: Math.floor(Math.random() * 2),
+        disliked: 0,
+    };
+
+    onCardClick = e => {
+        const {paper} = this.props;
+        const link = '/papers/' + paper.subject + '/' + paper.year;
+        this.props.history.push(link);
+    };
+
+    onMouseHoverCard = state => async event => {
+        await this.setState({paperHover: state});
+    };
+
+    render() {
+        const {paper} = this.props;
+        const {paperHover, liked,} = this.state;
+        return (
+            <Paper
+                style={{
+                    ...styles.root,
+                    boxShadow: paperHover ? 'grey 0px 0px 15px' : '',
+                    transform: paperHover ? 'scale(1.02)' : 'scale(1)',
+                }}
+                onClick={this.onCardClick}
+                onMouseEnter={this.onMouseHoverCard(true)}
+                onMouseLeave={this.onMouseHoverCard(false)}>
+
+                <div style={styles.title}>
+                    {paper.subject} - {paper.year}
+                </div>
+                <div>
+                    <Grid container style={styles.dataPanel}>
+                        <Grid item xs={8}>
+                            <Rating
+                                value={`${paper.rating}`}
+                                readonly
+                                weight='20'
+                            />
+                        </Grid>
+                        <Grid item xs={4} style={{marginBottom: 15}}>
+                            <Typography>
+                                ({paper.rating})
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography color={"primary"} style={{fontWeight: liked===1 ? 'bold' : 'none'}}>
+                                {liked ? 'Liked' : 'likes'} ({paper.likes})
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Typography color={"secondary"} style={{fontWeight: liked!==1 ? 'bold' : 'none'}}>
+                                Dislikes ({paper.dislikes})
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider style={{margin: '0px 5px'}}/>
+                    <br/>
+                    <Typography style={{color: 'grey', fontWeight: 'bold'}}>
+                        {paper.minutes} minutes | {paper.numberOfQuestions} Questions
+                    </Typography>
+                    <LinesEllipsis
+                        text={paper.description}
+                        style={{textAlign: 'left', padding: 10}}
+                        maxLine='3'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                    />
+
+                </div>
+            </Paper>
+        )
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    isAuth: state.auth.isAuthenticated,
-  };
+    return {
+        isAuth: state.auth.isAuthenticated,
+    };
 }
 
-export default connect(mapStateToProps, null)(PaperCard);
+export default connect(mapStateToProps, null)(withRouter(PaperCard));
