@@ -19,7 +19,7 @@ function getSteps() {
 class NewPaper extends React.Component {
 
     state = {
-        activeStep: 1,
+        activeStep: 0,
         skipped: new Set(),
         paperDetails: '',
     };

@@ -84,6 +84,16 @@ export const signIn = data => {
 
             localStorage.setItem('JWT_TOKEN', res.data.token);
             axios.defaults.headers.common['Authorization'] = res.data.token;
+
+            const userRes = await axios.get(GET_USER_PROFILE_DATA);
+
+            await localStorage.setItem('USER', JSON.stringify(userRes.data));
+
+            await dispatch({
+                type: AUTH_USER,
+                payload: userRes.data,
+            });
+
         } catch (err) {
             dispatch({
                 type: AUTH_ERROR,
@@ -123,7 +133,9 @@ export const toggleDrawer = state => {
 
 export const getUser = () => {
     return async dispatch => {
+        console.log("dsd");
         const userRes = await axios.get(GET_USER_PROFILE_DATA);
+        console.log(userRes);
 
         await localStorage.setItem('USER', userRes.data);
         dispatch({

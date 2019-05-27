@@ -80,7 +80,6 @@ class SignUp extends React.Component {
             if (!this.props.errorMessage) {
                 this.props.history.push('/');
             }
-            console.log(this.props.errorMessage)
         }
     };
 
@@ -222,12 +221,12 @@ class SignUp extends React.Component {
                         textAlign: 'center',
                     }}>
                         <Typography variant={"h5"} component={"h3"}>
-                            Sign in using third party service
+                            Sign up using third party service
                         </Typography>
                         <br/><br/>
                         <GoogleLogin
                             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                            buttonText="Sign in with Google"
+                            buttonText="Sign up with Google"
                             onSuccess={this.responseGoogle}
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
