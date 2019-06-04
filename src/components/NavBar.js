@@ -34,6 +34,10 @@ class NavBar extends React.Component {
         this.props.history.push(this.props.isAuth ? '/home' : '/');
     };
 
+    onClickProfile = event => {
+        this.props.history.push('/users/profile');
+    };
+
     onHeadingHover = state => e => {
         this.setState({headingHover: state});
     };
@@ -72,7 +76,7 @@ class NavBar extends React.Component {
                             : null}
 
                         {this.props.isAuth && this.props.user ?
-                            <Avatar src={this.props.user.photo}/>
+                            <Avatar src={this.props.user.photo} onClick={this.onClickProfile}/>
                             : null}
 
                     </Toolbar>

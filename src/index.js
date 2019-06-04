@@ -21,7 +21,9 @@ import Profile from './components/profile/Profile';
 import ProfileSettings from './components/profile/ProfileSettings';
 
 import * as serviceWorker from './serviceWorker';
+
 import reducers from './reducers';
+
 import authGuard from './components/HOCs/AuthGuard';
 import signInUpGuard from './components/HOCs/SignInUpGuard';
 
