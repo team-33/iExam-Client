@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from "react-redux";
 import Grid from '@material-ui/core/Grid';
 
-import * as paperActions from '../../../actions/papers';
 import NewPaperForm from "./NewPaperForm";
 import {Stepper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -109,4 +108,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, paperActions)(NewPaper);
+export default connect(mapStateToProps, null)(NewPaper);

@@ -3,14 +3,9 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
-import * as homeActions from '../actions/papers';
 import PaperPanel from './papers/PaperPanel';
 
 class Home extends React.Component {
-
-    componentDidMount() {
-        this.props.getPapers();
-    }
 
     render() {
         return (
@@ -35,4 +30,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, homeActions)(Home);
+export default connect(mapStateToProps, null)(Home);
