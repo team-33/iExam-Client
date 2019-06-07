@@ -43,13 +43,11 @@ class PaperCard extends React.Component {
 
     render() {
         const {paper} = this.props;
-        const { liked,} = this.state;
+        const {liked,} = this.state;
         return (
             <Paper
                 style={styles.root}
-                onClick={this.onCardClick}
-                onMouseEnter={this.onMouseHoverCard(true)}
-                onMouseLeave={this.onMouseHoverCard(false)}>
+                onClick={this.onCardClick}>
 
                 <div style={styles.title}>
                     {paper.subject} - {paper.year}
@@ -69,12 +67,12 @@ class PaperCard extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography color={"primary"} style={{fontWeight: liked===1 ? 'bold' : 'none'}}>
+                            <Typography color={"primary"} style={{fontWeight: liked === 1 ? 'bold' : 'none'}}>
                                 {liked ? 'Liked' : 'likes'} ({paper.likes})
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography color={"secondary"} style={{fontWeight: liked!==1 ? 'bold' : 'none'}}>
+                            <Typography color={"secondary"} style={{fontWeight: liked !== 1 ? 'bold' : 'none'}}>
                                 Dislikes ({paper.dislikes})
                             </Typography>
                         </Grid>
