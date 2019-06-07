@@ -20,6 +20,8 @@ import NewPaper from './components/papers/new-paper/NewPaper';
 import Profile from './components/profile/Profile';
 import ProfileSettings from './components/profile/ProfileSettings';
 
+import Notifications from './components/Notifications';
+
 import * as serviceWorker from './serviceWorker';
 
 import reducers from './reducers';
@@ -28,7 +30,6 @@ import authGuard from './components/HOCs/AuthGuard';
 import signInUpGuard from './components/HOCs/SignInUpGuard';
 
 const jwtToken = localStorage.getItem('JWT_TOKEN');
-const user = JSON.parse(localStorage.getItem('USER'));
 axios.defaults.headers.common['Authorization'] = jwtToken;
 
 ReactDOM.render(
@@ -36,7 +37,6 @@ ReactDOM.render(
         auth: {
             token: jwtToken,
             isAuthenticated: !!jwtToken,
-            user: user,
         }
     }, applyMiddleware(reduxThunk))}>
         <BrowserRouter>
@@ -53,6 +53,8 @@ ReactDOM.render(
 
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>
                     <Route exact path="/users/profile/settings" component={authGuard(ProfileSettings)}/>
+
+                    <Route exact path="/notifications" component={authGuard(Notifications)}/>
 
                     <Route exact={true} path="*" component={NotFound}/>
                 </Switch>

@@ -10,6 +10,8 @@ import {withRouter} from 'react-router-dom'
 import {Avatar} from "@material-ui/core";
 
 import * as actions from '../actions';
+import axios from "axios";
+import {GET_USER_PROFILE_DATA} from "../URL";
 
 const styles = {
     heading: {
@@ -19,6 +21,17 @@ const styles = {
 };
 
 class NavBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        axios.get(GET_USER_PROFILE_DATA).then((res) => {
+            this.setState({user: res.data});
+        });
+    }
+
+    state = {
+        user:''
+    };
 
     signOut = () => {
         this.props.signOut();
@@ -30,19 +43,20 @@ class NavBar extends React.Component {
             this.props.toggleDrawer(state);
     };
 
-    onClickHome = e => {
+    onClickHome = () => {
         this.props.history.push(this.props.isAuth ? '/home' : '/');
     };
 
-    onClickProfile = event => {
+    onClickProfile = () => {
         this.props.history.push('/users/profile');
     };
 
-    onHeadingHover = state => e => {
+    onHeadingHover = state => () => {
         this.setState({headingHover: state});
     };
 
     render() {
+        const {user} = this.state;
         return (
             <div style={{flexGrow: 1}}>
                 <AppBar position='fixed'>
@@ -75,8 +89,8 @@ class NavBar extends React.Component {
                             </Link>
                             : null}
 
-                        {this.props.isAuth && this.props.user ?
-                            <Avatar src={this.props.user.photo} onClick={this.onClickProfile}/>
+                        {this.props.isAuth && user ?
+                            <Avatar src={user.photo} onClick={this.onClickProfile}/>
                             : null}
 
                     </Toolbar>
@@ -89,7 +103,6 @@ class NavBar extends React.Component {
 function mapStateToProps(state) {
     return {
         isAuth: state.auth.isAuthenticated,
-        user: state.auth.user,
     };
 }
 
