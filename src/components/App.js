@@ -4,8 +4,8 @@ import {SnackbarProvider} from 'notistack';
 import NavBar from './NavBar';
 import Drawer from './Drawer';
 
-
 export default class App extends React.Component {
+
     render() {
         return (
             <SnackbarProvider maxSnack={4}>

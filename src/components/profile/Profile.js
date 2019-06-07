@@ -18,12 +18,22 @@ import * as actions from "../../actions";
 
 
 import Fade from "@material-ui/core/Fade";
+import axios from "axios";
+import {GET_USER_PROFILE_DATA} from "../../URL";
 
 class Profile extends React.Component {
+
+    constructor(props) {
+        super(props);
+        axios.get(GET_USER_PROFILE_DATA).then((res) => {
+            this.setState({user: res.data});
+        });
+    }
 
     state = {
         align: 'center',
         anchorEl: null,
+        user: '',
     };
 
     handleClick = event => {
@@ -36,8 +46,7 @@ class Profile extends React.Component {
     };
 
     render() {
-        const {anchorEl} = this.state;
-        const {profile} = this.props;
+        const {anchorEl, user} = this.state;
         return (
             <div>
                 <Grid container>
@@ -45,20 +54,20 @@ class Profile extends React.Component {
                     <Grid item xs={8} style={{textAlign: this.state.align}}>
 
                         <Fade
-                            in={profile.email === undefined}
+                            in={user === undefined}
                             unmountOnExit
                             onExited={() => this.setState({align: 'left'})}
                         >
                             <CircularProgress/>
                         </Fade>
 
-                        <Fade in={profile.email !== undefined}
+                        <Fade in={user !== undefined}
                               style={{
-                                  transitionDelay: profile.email !== undefined ? '800ms' : '0ms',
+                                  transitionDelay: user !== undefined ? '800ms' : '0ms',
                               }}>
                             <Card>
                                 <CardHeader
-                                    avatar={<Avatar src={profile.photo}/>}
+                                    avatar={<Avatar src={user.photo}/>}
                                     action={
                                         <IconButton
                                             aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -68,8 +77,8 @@ class Profile extends React.Component {
                                             <MoreVertIcon/>
                                         </IconButton>
                                     }
-                                    title={profile.given_name + ' ' + profile.family_name}
-                                    subheader={profile.email}
+                                    title={user.given_name + ' ' + user.family_name}
+                                    subheader={user.email}
                                 />
                             </Card>
                         </Fade>
@@ -98,7 +107,6 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
     return {
         isAuth: state.auth.isAuthenticated,
-        profile: state.auth.user,
     };
 }
 

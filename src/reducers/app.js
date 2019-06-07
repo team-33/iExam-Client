@@ -1,16 +1,21 @@
 import {
-TOGGLE_DRAWER
- } from '../actions/types';
+    TOGGLE_DRAWER,
+    AUTH_USER,
+} from '../actions/types';
 
 const DEFAULT_STATE = {
-  isDrawerOpen:false
-}
+    isDrawerOpen: false,
+    user: '',
+    errorMessage:'',
+};
 
 export default (state = DEFAULT_STATE, action) => {
-  switch(action.type) {
-    case TOGGLE_DRAWER:
-      return { ...state, isDrawerOpen: action.payload };
-    default:
-      return state
-  }
+    switch (action.type) {
+        case TOGGLE_DRAWER:
+            return {...state, isDrawerOpen: action.payload};
+        case AUTH_USER:
+            return {...state, user: action.payload, errorMessage: ''};
+        default:
+            return state
+    }
 }

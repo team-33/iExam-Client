@@ -30,7 +30,6 @@ import authGuard from './components/HOCs/AuthGuard';
 import signInUpGuard from './components/HOCs/SignInUpGuard';
 
 const jwtToken = localStorage.getItem('JWT_TOKEN');
-const user = JSON.parse(localStorage.getItem('USER'));
 axios.defaults.headers.common['Authorization'] = jwtToken;
 
 ReactDOM.render(
@@ -38,7 +37,6 @@ ReactDOM.render(
         auth: {
             token: jwtToken,
             isAuthenticated: !!jwtToken,
-            user: user,
         }
     }, applyMiddleware(reduxThunk))}>
         <BrowserRouter>

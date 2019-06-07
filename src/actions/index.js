@@ -29,14 +29,6 @@ export const oauthGoogle = data => {
             payload: res.data.token
         });
 
-        const userRes = await axios.get(GET_USER_PROFILE_DATA);
-
-        await localStorage.setItem('USER', JSON.stringify(userRes.data));
-
-        await dispatch({
-            type: AUTH_USER,
-            payload: userRes.data,
-        });
     }
 };
 
@@ -70,7 +62,7 @@ export const signUp = data => {
             })
         }
     };
-}
+};
 
 export const signIn = data => {
     return async dispatch => {
@@ -101,7 +93,7 @@ export const signIn = data => {
             })
         }
     };
-}
+};
 
 export const signOut = () => {
     return dispatch => {
@@ -131,16 +123,15 @@ export const toggleDrawer = state => {
     };
 };
 
-export const getUser = () => {
-    return async dispatch => {
-        console.log("dsd");
-        const userRes = await axios.get(GET_USER_PROFILE_DATA);
-        console.log(userRes);
-
-        await localStorage.setItem('USER', userRes.data);
-        dispatch({
-            type: AUTH_USER,
-            payload: userRes.data,
-        })
-    };
-};
+// export const getUser = () => {
+//     return async dispatch => {
+//         console.log('called');
+//         const userRes = await axios.get(GET_USER_PROFILE_DATA);
+//
+//         await localStorage.setItem('USER', userRes.data);
+//         dispatch({
+//             type: AUTH_USER,
+//             payload: userRes.data,
+//         })
+//     };
+// };
