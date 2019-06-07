@@ -20,6 +20,8 @@ import NewPaper from './components/papers/new-paper/NewPaper';
 import Profile from './components/profile/Profile';
 import ProfileSettings from './components/profile/ProfileSettings';
 
+import Notifications from './components/Notifications';
+
 import * as serviceWorker from './serviceWorker';
 
 import reducers from './reducers';
@@ -53,6 +55,8 @@ ReactDOM.render(
 
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>
                     <Route exact path="/users/profile/settings" component={authGuard(ProfileSettings)}/>
+
+                    <Route exact path="/notifications" component={authGuard(Notifications)}/>
 
                     <Route exact={true} path="*" component={NotFound}/>
                 </Switch>
