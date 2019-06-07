@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from "react-redux";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
@@ -247,10 +246,4 @@ class NewPaperForm extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        error: state.papers.errMessage,
-    };
-}
-
-export default connect(mapStateToProps, null)(NewPaperForm);
+export default NewPaperForm;

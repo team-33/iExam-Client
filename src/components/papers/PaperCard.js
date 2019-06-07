@@ -11,7 +11,6 @@ const styles = {
     root: {
         height: 300,
         borderRadius: '3px 15px 3px 15px',
-        cursor: 'pointer',
         background: '#f3f3f3',
     },
     title: {
@@ -32,31 +31,22 @@ const styles = {
 class PaperCard extends React.Component {
 
     state = {
-        paperHover: false,
         liked: Math.floor(Math.random() * 2),
         disliked: 0,
     };
 
-    onCardClick = e => {
+    onCardClick = () => {
         const {paper} = this.props;
-        const link = '/papers/' + paper.subject + '/' + paper.year;
+        const link = '/papers/' + paper.subject + '/' + paper.year + '/' + paper._id;
         this.props.history.push(link);
-    };
-
-    onMouseHoverCard = state => async event => {
-        await this.setState({paperHover: state});
     };
 
     render() {
         const {paper} = this.props;
-        const {paperHover, liked,} = this.state;
+        const { liked,} = this.state;
         return (
             <Paper
-                style={{
-                    ...styles.root,
-                    boxShadow: paperHover ? 'grey 0px 0px 15px' : '',
-                    transform: paperHover ? 'scale(1.02)' : 'scale(1)',
-                }}
+                style={styles.root}
                 onClick={this.onCardClick}
                 onMouseEnter={this.onMouseHoverCard(true)}
                 onMouseLeave={this.onMouseHoverCard(false)}>
