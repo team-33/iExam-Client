@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import LinesEllipsis from 'react-lines-ellipsis'
-import {Divider, Typography} from "@material-ui/core";
+import {Button, Divider, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Rating from "react-star-rating-lite";
 
@@ -45,54 +45,56 @@ class PaperCard extends React.Component {
         const {paper} = this.props;
         const {liked,} = this.state;
         return (
-            <Paper
-                style={styles.root}
-                onClick={this.onCardClick}>
+            <Button style={{borderRadius: '3px 15px 3px 15px', padding: 5}}>
+                <Paper
+                    style={styles.root}
+                    onClick={this.onCardClick}>
 
-                <div style={styles.title}>
-                    {paper.subject} - {paper.year}
-                </div>
-                <div>
-                    <Grid container style={styles.dataPanel}>
-                        <Grid item xs={8}>
-                            <Rating
-                                value={`${paper.rating}`}
-                                readonly
-                                weight='20'
-                            />
+                    <div style={styles.title}>
+                        {paper.subject} - {paper.year}
+                    </div>
+                    <div>
+                        <Grid container style={styles.dataPanel}>
+                            <Grid item xs={8}>
+                                <Rating
+                                    value={`${paper.rating}`}
+                                    readonly
+                                    weight='20'
+                                />
+                            </Grid>
+                            <Grid item xs={4} style={{marginBottom: 15}}>
+                                <Typography>
+                                    ({paper.rating})
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography color={"primary"} style={{fontWeight: liked === 1 ? 'bold' : 'none'}}>
+                                    {liked ? 'Liked' : 'likes'} ({paper.likes})
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography color={"secondary"} style={{fontWeight: liked !== 1 ? 'bold' : 'none'}}>
+                                    Dislikes ({paper.dislikes})
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4} style={{marginBottom: 15}}>
-                            <Typography>
-                                ({paper.rating})
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography color={"primary"} style={{fontWeight: liked === 1 ? 'bold' : 'none'}}>
-                                {liked ? 'Liked' : 'likes'} ({paper.likes})
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography color={"secondary"} style={{fontWeight: liked !== 1 ? 'bold' : 'none'}}>
-                                Dislikes ({paper.dislikes})
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Divider style={{margin: '0px 5px'}}/>
-                    <br/>
-                    <Typography style={{color: 'grey', fontWeight: 'bold'}}>
-                        {paper.minutes} minutes | {paper.numberOfQuestions} Questions
-                    </Typography>
-                    <LinesEllipsis
-                        text={paper.description}
-                        style={{textAlign: 'left', padding: 10}}
-                        maxLine='3'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                    />
+                        <Divider style={{margin: '0px 5px'}}/>
+                        <br/>
+                        <Typography style={{color: 'grey', fontWeight: 'bold'}}>
+                            {paper.minutes} minutes | {paper.numberOfQuestions} Questions
+                        </Typography>
+                        <LinesEllipsis
+                            text={paper.description}
+                            style={{textAlign: 'left', padding: 10}}
+                            maxLine='3'
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                        />
 
-                </div>
-            </Paper>
+                    </div>
+                </Paper>
+            </Button>
         )
     }
 }

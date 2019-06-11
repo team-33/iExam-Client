@@ -10,6 +10,7 @@ class CustomTextField extends React.Component {
 
     onChangeText = e => {
         this.setState({text: e.target.value});
+        this.props.onTextChange(this.props.number, this.props.q, e.target.value)
     };
 
     render() {

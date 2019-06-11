@@ -90,8 +90,8 @@ class NavBar extends React.Component {
                             : null}
 
                         {this.props.isAuth && user ?
-                            <IconButton>
-                                <Avatar src={user.photo} onClick={this.onClickProfile}/>
+                            <IconButton onClick={this.onClickProfile}>
+                                <Avatar src={user.photo}/>
                             </IconButton>
                             : null}
 
