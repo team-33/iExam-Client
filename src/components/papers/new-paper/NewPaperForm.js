@@ -17,6 +17,8 @@ import Textarea from "@material-ui/core/InputBase/Textarea";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import axios from "axios";
+import {withRouter} from 'react-router-dom';
+
 import {INSERT_PAPER_API} from "../../../URL";
 
 const style = {
@@ -69,7 +71,6 @@ class NewPaperForm extends React.Component {
             likes: Math.floor(Math.random() * 51),
             dislikes: Math.floor(Math.random() * 30),
             rating: (Math.random() * 5.0).toFixed(2),
-            questions: []
         },
         dialogOpen: false
     };
@@ -77,24 +78,11 @@ class NewPaperForm extends React.Component {
     onSubmit = async event => {
         this.setState({dialogOpen: true});
         event.preventDefault();
-        await this.insertPaper();
-        this.props.updatePaperDetails(this.state.paper);
+        let res = await this.insertPaper();
         await this.setState({dialogOpen: false});
-        this.props.stepNext();
-        if (!this.props.error) {
-            this.setState({
-                paper: {
-                    subject: '',
-                    year: '',
-                    minutes: '',
-                    numberOfQuestions: '',
-                    description: '',
-                    likes: Math.floor(Math.random() * 51),
-                    dislikes: Math.floor(Math.random() * 30),
-                    rating: (Math.random() * 5.0).toFixed(2),
-                    questions: []
-                }
-            });
+        if (res) {
+            const url = '/papers/' + res.data.subject + '/' + res.data.year + '/' + res.data._id;
+            this.props.history.push(url)
         } else {
             alert(this.props.error);
         }
@@ -102,8 +90,7 @@ class NewPaperForm extends React.Component {
 
     insertPaper = async () => {
         try {
-            await axios.post(INSERT_PAPER_API, this.state.paper);
-            return true;
+            return await axios.post(INSERT_PAPER_API, this.state.paper);
         } catch (err) {
             return false;
         }
@@ -246,4 +233,4 @@ class NewPaperForm extends React.Component {
     }
 }
 
-export default NewPaperForm;
+export default withRouter(NewPaperForm);

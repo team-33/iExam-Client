@@ -31,10 +31,11 @@ class SingleQuestionExpansionPanel extends React.Component {
         answer4: '',
     };
 
-    onTextChange =  (number, q, text) => {
+    onTextChange = async (number, q, text) => {
         q ?
-             this.setState({question: text}) :
-             this.setState({['answer' + number]: text});
+            await this.setState({question: text}) :
+            await this.setState({['answer' + number]: text});
+        this.props.onQestionUpdate(this.props.panel, this.state)
     };
 
     render() {

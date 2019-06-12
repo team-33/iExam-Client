@@ -7,24 +7,21 @@ import {GET_PAPER_API} from '../../URL'
 
 class Paper extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            paper: ''
-        }
-    }
+    state = {
+        paper: ''
+    };
 
     componentDidMount() {
-        var {subject, year, _id} = this.props.match.params;
+        var {id} = this.props.match.params;
+        console.log(GET_PAPER_API + '/get/' + id);
         //paper details and answers
-        axios.get(GET_PAPER_API + '/' + subject + '/' + year + '/' + _id).then(function (res) {
+        axios.get(GET_PAPER_API + '/get/' + id).then(function (res) {
             this.setState({paper: res.data});
         }.bind(this));
     }
 
     render() {
         var {paper} = this.state;
-        console.log(paper);
         return (
             <div>
                 <Fade
