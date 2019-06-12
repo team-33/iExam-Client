@@ -37,7 +37,7 @@ class PaperCard extends React.Component {
 
     onCardClick = () => {
         const {paper} = this.props;
-        const link = '/papers/' + paper.subject + '/' + paper.year + '/' + paper._id;
+        const link = '/papers/get/' + paper._id;
         this.props.history.push(link);
     };
 
