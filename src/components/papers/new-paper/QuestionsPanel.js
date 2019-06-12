@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import SingleQuestionExpansionPanel from "./single-question/SingleQuestionExpansionPanel";
 import {Button, Paper} from "@material-ui/core";
@@ -8,7 +7,6 @@ import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 import SkipNextIcon from "@material-ui/icons/FastForward";
 
-import * as paperActions from '../../../actions/papers';
 import Grid from "@material-ui/core/Grid";
 
 const styles = {
@@ -98,8 +96,4 @@ class QuestionsPanel extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {};
-}
-
-export default connect(mapStateToProps, paperActions)(QuestionsPanel);
+export default QuestionsPanel;

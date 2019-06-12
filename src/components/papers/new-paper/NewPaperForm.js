@@ -1,10 +1,8 @@
 import React from 'react';
-import {connect} from "react-redux";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-import * as paperActions from '../../../actions/papers';
 import {
     CircularProgress,
     Dialog,
@@ -18,6 +16,8 @@ import {
 import Textarea from "@material-ui/core/InputBase/Textarea";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import axios from "axios";
+import {INSERT_PAPER_API} from "../../../URL";
 
 const style = {
     root: {
@@ -65,6 +65,7 @@ class NewPaperForm extends React.Component {
             minutes: '',
             numberOfQuestions: '',
             description: '',
+            //temporary
             likes: Math.floor(Math.random() * 51),
             dislikes: Math.floor(Math.random() * 30),
             rating: (Math.random() * 5.0).toFixed(2),
@@ -76,7 +77,7 @@ class NewPaperForm extends React.Component {
     onSubmit = async event => {
         this.setState({dialogOpen: true});
         event.preventDefault();
-        await this.props.insertPaper(this.state.paper);
+        await this.insertPaper();
         this.props.updatePaperDetails(this.state.paper);
         await this.setState({dialogOpen: false});
         this.props.stepNext();
@@ -99,6 +100,15 @@ class NewPaperForm extends React.Component {
         }
     };
 
+    insertPaper = async () => {
+        try {
+            await axios.post(INSERT_PAPER_API, this.state.paper);
+            return true;
+        } catch (err) {
+            return false;
+        }
+    };
+
     onChangeText = event => this.setState({paper: {...this.state.paper, [event.target.name]: event.target.value}});
 
     onChangeNumber = event => this.setState({paper: {...this.state.paper, [event.target.name]: event.target.value}});
@@ -106,6 +116,8 @@ class NewPaperForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit} style={style.form}>
+
+                {/*dialog for show saving*/}
                 <Dialog open={this.state.dialogOpen}>
                     <DialogTitle>
                         Saving...
@@ -114,6 +126,7 @@ class NewPaperForm extends React.Component {
                         <CircularProgress/>
                     </DialogContent>
                 </Dialog>
+
                 {/*heading*/}
                 <div style={style.formTitle}>Insert New Paper</div>
                 <br/>
@@ -233,10 +246,4 @@ class NewPaperForm extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        error: state.papers.errMessage,
-    };
-}
-
-export default connect(mapStateToProps, paperActions)(NewPaperForm);
+export default NewPaperForm;

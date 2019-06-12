@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from "react-redux";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -7,8 +6,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import {Divider} from "@material-ui/core";
 
-import Question from "./Question";
-import Answer from "./Answer";
+import CustomTextField from "./CustomTextField";
 
 const styles = {
     heading: {
@@ -24,6 +22,21 @@ const styles = {
 
 class SingleQuestionExpansionPanel extends React.Component {
 
+    state = {
+        question: '',
+        answer0: '',
+        answer1: '',
+        answer2: '',
+        answer3: '',
+        answer4: '',
+    };
+
+    onTextChange =  (number, q, text) => {
+        q ?
+             this.setState({question: text}) :
+             this.setState({['answer' + number]: text});
+    };
+
     render() {
         const {expanded, panel} = this.props;
 
@@ -34,22 +47,37 @@ class SingleQuestionExpansionPanel extends React.Component {
                     <Typography style={styles.secondaryHeading}>I am an expansion panel</Typography>
                 </ExpansionPanelSummary>
 
-                <ExpansionPanelDetails><Question/></ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={99} q={true}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
 
                 <Divider style={{margin: '0 26px'}}/>
 
-                <ExpansionPanelDetails><Answer number={0}/></ExpansionPanelDetails>
-                <ExpansionPanelDetails><Answer number={1}/></ExpansionPanelDetails>
-                <ExpansionPanelDetails><Answer number={2}/></ExpansionPanelDetails>
-                <ExpansionPanelDetails><Answer number={3}/></ExpansionPanelDetails>
-                <ExpansionPanelDetails><Answer number={4}/></ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={0} q={false}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={1} q={false}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={2} q={false}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={3} q={false}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
+                <ExpansionPanelDetails>
+                    <CustomTextField number={4} q={false}
+                                     onTextChange={this.onTextChange}/>
+                </ExpansionPanelDetails>
             </ExpansionPanel>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {};
-}
 
-export default connect(mapStateToProps, null)(SingleQuestionExpansionPanel);
+export default SingleQuestionExpansionPanel;

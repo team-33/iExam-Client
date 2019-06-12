@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 import {List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
 import Icons from "@material-ui/icons/Save";
 
-import * as homeActions from '../actions/papers';
-
 class Notifications extends React.Component {
 
     render() {
@@ -33,4 +31,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, homeActions)(Notifications);
+export default connect(mapStateToProps, null)(Notifications);

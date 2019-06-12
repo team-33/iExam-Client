@@ -1,8 +1,6 @@
 import React from 'react';
-import {connect} from "react-redux";
 import Grid from '@material-ui/core/Grid';
 
-import * as paperActions from '../../../actions/papers';
 import NewPaperForm from "./NewPaperForm";
 import {Stepper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -19,7 +17,7 @@ function getSteps() {
 class NewPaper extends React.Component {
 
     state = {
-        activeStep: 0,
+        activeStep: 1,
         skipped: new Set(),
         paperDetails: '',
     };
@@ -103,10 +101,4 @@ class NewPaper extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        error: state.papers.errMessage,
-    };
-}
-
-export default connect(mapStateToProps, paperActions)(NewPaper);
+export default NewPaper;

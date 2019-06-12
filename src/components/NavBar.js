@@ -30,7 +30,7 @@ class NavBar extends React.Component {
     }
 
     state = {
-        user:''
+        user: ''
     };
 
     signOut = () => {
@@ -90,7 +90,9 @@ class NavBar extends React.Component {
                             : null}
 
                         {this.props.isAuth && user ?
-                            <Avatar src={user.photo} onClick={this.onClickProfile}/>
+                            <IconButton onClick={this.onClickProfile}>
+                                <Avatar src={user.photo}/>
+                            </IconButton>
                             : null}
 
                     </Toolbar>
