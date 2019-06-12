@@ -35,9 +35,8 @@ class QuestionsPanel extends React.Component {
         });
     };
 
-    onQuestionUpdate = async (index, qState) => {
-        await this.setState({questions: {...this.state.questions, ['question' + index]: qState}});
-        console.log(this.state);
+    onQuestionUpdate = (index, qState) => {
+        this.setState({questions: {...this.state.questions, ['question' + index]: qState}});
     };
 
     skipOrSavePanel = () =>
