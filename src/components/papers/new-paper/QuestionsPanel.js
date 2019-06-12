@@ -22,6 +22,7 @@ class QuestionsPanel extends React.Component {
         expanded: 0,
         numberOfQuestions: this.props.numberOfQuestions,
         currentPanels: 0,
+        questions: {}
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -32,6 +33,11 @@ class QuestionsPanel extends React.Component {
         this.setState({
             expanded: expanded ? panel : false,
         });
+    };
+
+    onQuestionUpdate = async (index, qState) => {
+        await this.setState({questions: {...this.state.questions, ['question' + index]: qState}});
+        console.log(this.state);
     };
 
     skipOrSavePanel = () =>
@@ -65,7 +71,8 @@ class QuestionsPanel extends React.Component {
                 {this.skipOrSavePanel()}
                 {Array.from({length: this.state.currentPanels}, (item, index) =>
                     <SingleQuestionExpansionPanel key={index} expanded={this.state.expanded} panel={index}
-                                                  handleChange={this.handleChange}/>
+                                                  handleChange={this.handleChange}
+                                                  onQestionUpdate={this.onQuestionUpdate}/>
                 )}
 
                 <Paper style={{padding: '12px 23px', margin: '10px 0px'}}>
