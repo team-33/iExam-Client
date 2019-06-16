@@ -51,10 +51,6 @@ class NavBar extends React.Component {
         this.props.history.push('/users/profile');
     };
 
-    onHeadingHover = state => () => {
-        this.setState({headingHover: state});
-    };
-
     render() {
         const {user} = this.state;
         return (
