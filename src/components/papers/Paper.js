@@ -7,7 +7,6 @@ import {GET_PAPER_API} from '../../URL'
 import {Card, CardContent, CardHeader, IconButton, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
 
 class Paper extends React.Component {
 
@@ -20,9 +19,18 @@ class Paper extends React.Component {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    handleClose = () => {
+    handleCloseMenu = type => {
         this.setState({anchorEl: null});
-        this.props.history.push('/users/paper/edit')
+        switch (type) {
+            case 'edit-paper':
+                this.props.history.push('/papers/edit/' + this.props.match.params.id);
+                break;
+            case 'add-questions':
+                this.props.history.push('/papers/add/' + this.props.match.params.id);
+                break;
+            default:
+                return;
+        }
     };
 
     componentDidMount() {
@@ -88,19 +96,19 @@ class Paper extends React.Component {
                     id="simple-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
-                    onClose={this.handleClose}
+                    onClose={() => this.handleCloseMenu()}
                 >
-                    <MenuItem onClick={this.handleClose}>
+                    <MenuItem onClick={() => this.handleCloseMenu('edit-paper')}>
                         <ListItemIcon>
                             <EditIcon/>
                         </ListItemIcon>
-                        <ListItemText inset primary={"Edit paper"}/>
+                        <ListItemText primary={"Edit paper"}/>
                     </MenuItem>
-                    <MenuItem onClick={this.handleClose}>
+                    <MenuItem onClick={() => this.handleCloseMenu('add-questions')}>
                         <ListItemIcon>
                             <EditIcon/>
                         </ListItemIcon>
-                        <ListItemText inset primary={"Add Question"}/>
+                        <ListItemText primary={"Add Question"}/>
                     </MenuItem>
                 </Menu>
             </div>

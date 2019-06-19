@@ -15,7 +15,7 @@ class Notifications extends React.Component {
                                 <Icons/>
                             </ListItemIcon>
                             <ListItemText style={{}}>
-                                sdasdsa
+                                sdasdsasdsadkflkln dsf lls
                             </ListItemText>
                         </ListItem>
                     </List>
