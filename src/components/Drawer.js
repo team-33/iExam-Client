@@ -13,6 +13,7 @@ import NoteIcon from '@material-ui/icons/Note';
 import ExitIcon from '@material-ui/icons/ExitToApp';
 import ProfileIcon from '@material-ui/icons/Person';
 import NotificationIcon from '@material-ui/icons/Notifications';
+import UsersIcon from '@material-ui/icons/People';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -55,12 +56,20 @@ class Drawer extends React.Component {
                         </ListItem>
                     </Link>
 
+                    <Link to='/users/all' style={{textDecoration: 'none'}}>
+                        <ListItem button key='users'>
+                            <ListItemIcon><UsersIcon/></ListItemIcon>
+                            <ListItemText primary='Users'/>
+                        </ListItem>
+                    </Link>
+
                     <Link to='/notifications' style={{textDecoration: 'none'}}>
                         <ListItem button key='notifications'>
                             <ListItemIcon><NotificationIcon/></ListItemIcon>
                             <ListItemText primary='Notifications'/>
                         </ListItem>
                     </Link>
+
 
                     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                         <ListItem button key={text}>
