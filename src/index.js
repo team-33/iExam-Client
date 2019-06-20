@@ -16,7 +16,7 @@ import NotFound from './components/NotFound';
 import Papers from './components/papers/Papers';
 import Paper from './components/papers/Paper';
 import EditPaper from './components/papers/EditPaper';
-import AddQuestions from './components/papers/AddQuestions';
+import AddQuestions from './components/papers/new-question/AddQuestions';
 import NewPaper from './components/papers/new-paper/NewPaper';
 
 import Profile from './components/profile/Profile';
@@ -53,7 +53,7 @@ ReactDOM.render(
                     <Route exact path="/papers/get/:id" component={authGuard(Paper)}/>
                     <Route exact path="/papers/new" component={authGuard(NewPaper)}/>
                     <Route exact path="/papers/edit/:id" component={authGuard(EditPaper)}/>
-                    <Route exact path="/papers/add/:id" component={authGuard(AddQuestions)}/>
+                    <Route exact path="/papers/add/" component={authGuard(AddQuestions)}/>
 
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>
                     <Route exact path="/users/profile/settings" component={authGuard(ProfileSettings)}/>

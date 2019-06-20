@@ -3,10 +3,25 @@ import axios from 'axios';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import {GET_PAPER_API} from '../../URL'
-import {Card, CardContent, CardHeader, IconButton, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
+import {
+    GET_PAPER_API,
+    DELETE_PAPER_API
+} from '../../URL'
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem
+} from "@material-ui/core";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
+import PlusIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Paper extends React.Component {
 
@@ -19,14 +34,26 @@ class Paper extends React.Component {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    handleCloseMenu = type => {
+    handleCloseMenu = async type => {
         this.setState({anchorEl: null});
         switch (type) {
             case 'edit-paper':
                 this.props.history.push('/papers/edit/' + this.props.match.params.id);
                 break;
             case 'add-questions':
-                this.props.history.push('/papers/add/' + this.props.match.params.id);
+                this.props.history.push({
+                    pathname: '/papers/add/',
+                    state: this.state.paper
+                });
+                break;
+            case 'delete-paper':
+                var res = await axios.delete(DELETE_PAPER_API + '/' + this.state.paper._id);
+                if (res.status === 200) {
+                    alert("delete Success!");
+                    this.props.history.push('/');
+                } else {
+                    alert("error!")
+                }
                 break;
             default:
                 return;
@@ -43,14 +70,10 @@ class Paper extends React.Component {
 
     render() {
         const {paper, anchorEl} = this.state;
-        console.log(paper);
         return (
             <div>
                 <Fade
                     in={paper !== '' && !paper.error}
-                    style={{
-                        transitionDelay: paper !== '' && !paper.error ? '800ms' : '0ms',
-                    }}
                     unmountOnExit>
                     <Card>
                         <CardHeader
@@ -74,9 +97,6 @@ class Paper extends React.Component {
                 </Fade>
                 <Fade
                     in={paper === ''}
-                    style={{
-                        transitionDelay: paper === '' ? '800ms' : '0ms',
-                    }}
                     unmountOnExit>
                     <div style={{textAlign: 'center'}}>
                         <CircularProgress/>
@@ -84,9 +104,6 @@ class Paper extends React.Component {
                 </Fade>
                 <Fade
                     in={paper.error === 1}
-                    style={{
-                        transitionDelay: paper.error === 1 ? '800ms' : '0ms',
-                    }}
                     unmountOnExit>
                     <div>
                         Paper Not found in Database
@@ -96,19 +113,25 @@ class Paper extends React.Component {
                     id="simple-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
-                    onClose={() => this.handleCloseMenu()}
-                >
+                    onClose={() => this.handleCloseMenu()}>
+                    <MenuItem onClick={() => this.handleCloseMenu('add-questions')}>
+                        <ListItemIcon>
+                            <PlusIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary={"Add Question"}/>
+                    </MenuItem>
+                    <Divider/>
                     <MenuItem onClick={() => this.handleCloseMenu('edit-paper')}>
                         <ListItemIcon>
                             <EditIcon/>
                         </ListItemIcon>
                         <ListItemText primary={"Edit paper"}/>
                     </MenuItem>
-                    <MenuItem onClick={() => this.handleCloseMenu('add-questions')}>
+                    <MenuItem onClick={() => this.handleCloseMenu('delete-paper')}>
                         <ListItemIcon>
-                            <EditIcon/>
+                            <DeleteIcon/>
                         </ListItemIcon>
-                        <ListItemText primary={"Add Question"}/>
+                        <ListItemText primary={"Delete"}/>
                     </MenuItem>
                 </Menu>
             </div>

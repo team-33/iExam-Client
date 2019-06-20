@@ -8,4 +8,5 @@ export const GET_USER_PROFILE_DATA = BASE_BACKEND_URL + '/users/profile';
 
 export const GET_PAPERS_API = BASE_BACKEND_URL + '/papers';
 export const GET_PAPER_API = BASE_BACKEND_URL + '/papers';
+export const DELETE_PAPER_API = BASE_BACKEND_URL + '/papers/delete';
 export const INSERT_PAPER_API = BASE_BACKEND_URL + '/papers/new';
