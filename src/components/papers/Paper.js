@@ -3,7 +3,10 @@ import axios from 'axios';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import {GET_PAPER_API} from '../../URL'
+import {
+    GET_PAPER_API,
+    DELETE_PAPER_API
+} from '../../URL'
 import {
     Card,
     CardContent,
@@ -31,7 +34,7 @@ class Paper extends React.Component {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    handleCloseMenu = type => {
+    handleCloseMenu = async type => {
         this.setState({anchorEl: null});
         switch (type) {
             case 'edit-paper':
@@ -42,6 +45,15 @@ class Paper extends React.Component {
                     pathname: '/papers/add/',
                     state: this.state.paper
                 });
+                break;
+            case 'delete-paper':
+                var res = await axios.delete(DELETE_PAPER_API + '/' + this.state.paper._id);
+                if (res.status === 200) {
+                    alert("delete Success!");
+                    this.props.history.push('/');
+                } else {
+                    alert("error!")
+                }
                 break;
             default:
                 return;
@@ -115,7 +127,7 @@ class Paper extends React.Component {
                         </ListItemIcon>
                         <ListItemText primary={"Edit paper"}/>
                     </MenuItem>
-                    <MenuItem onClick={() => this.handleCloseMenu('edit-paper')}>
+                    <MenuItem onClick={() => this.handleCloseMenu('delete-paper')}>
                         <ListItemIcon>
                             <DeleteIcon/>
                         </ListItemIcon>
