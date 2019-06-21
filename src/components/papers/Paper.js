@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
     GET_PAPER_API,
-    DELETE_PAPER_API
+    DELETE_PAPER_API, GET_USER_PROFILE_DATA
 } from '../../URL'
 import {
     Card,
@@ -22,12 +22,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditIcon from '@material-ui/icons/Edit';
 import PlusIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Rating from "react-star-rating-lite";
 
 class Paper extends React.Component {
 
     state = {
         anchorEl: null,
-        paper: ''
+        paper: '',
+        user: ''
     };
 
     handleClick = event => {
@@ -66,10 +68,13 @@ class Paper extends React.Component {
         axios.get(GET_PAPER_API + '/get/' + id).then(function (res) {
             this.setState({paper: res.data});
         }.bind(this)).catch((e) => this.setState({paper: {error: 1}}));
+        axios.get(GET_USER_PROFILE_DATA).then((res) => {
+            this.setState({user: res.data});
+        });
     }
 
     render() {
-        const {paper, anchorEl} = this.state;
+        const {paper, anchorEl, user} = this.state;
         return (
             <div>
                 <Fade
@@ -89,6 +94,15 @@ class Paper extends React.Component {
                             title={paper.subject + "  |  " + paper.year}
                             subheader={paper.description}
                         />
+                        <CardContent>
+                            {paper.minutes} Minutes {"  |  "}
+                            {paper.numberOfQuestions} Questions
+                            <Rating
+                                value={`${paper.rating}`}
+                                readonly
+                                weight='20'
+                            />
+                        </CardContent>
                         <CardContent>
                             {paper.questions ? JSON.stringify(paper.questions) : null}
                             {paper.questions ? Object.keys(paper.questions).length : null}
@@ -127,12 +141,13 @@ class Paper extends React.Component {
                         </ListItemIcon>
                         <ListItemText primary={"Edit paper"}/>
                     </MenuItem>
-                    <MenuItem onClick={() => this.handleCloseMenu('delete-paper')}>
-                        <ListItemIcon>
-                            <DeleteIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary={"Delete"}/>
-                    </MenuItem>
+                    {user.user_level === '100' ?
+                        <MenuItem onClick={() => this.handleCloseMenu('delete-paper')}>
+                            <ListItemIcon>
+                                <DeleteIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={"Delete"}/>
+                        </MenuItem> : null}
                 </Menu>
             </div>
         )

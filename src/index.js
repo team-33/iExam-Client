@@ -19,6 +19,7 @@ import EditPaper from './components/papers/EditPaper';
 import AddQuestions from './components/papers/new-question/AddQuestions';
 import NewPaper from './components/papers/new-paper/NewPaper';
 
+import Users from './components/users/Users';
 import Profile from './components/profile/Profile';
 import ProfileSettings from './components/profile/ProfileSettings';
 
@@ -55,6 +56,7 @@ ReactDOM.render(
                     <Route exact path="/papers/edit/:id" component={authGuard(EditPaper)}/>
                     <Route exact path="/papers/add/" component={authGuard(AddQuestions)}/>
 
+                    <Route exact path="/users/all" component={authGuard(Users)}/>
                     <Route exact path="/users/profile" component={authGuard(Profile)}/>
                     <Route exact path="/users/profile/settings" component={authGuard(ProfileSettings)}/>
 
