@@ -7,6 +7,7 @@ export const LOCAL_SIGN_UP_API = BASE_BACKEND_URL + '/auth/local/signup';
 export const GET_USER_PROFILE_DATA = BASE_BACKEND_URL + '/users/profile';
 export const DELETE_USER_PROFILE = BASE_BACKEND_URL + '/users/profile/delete';
 export const GET_ALL_USERS = BASE_BACKEND_URL + '/users/all';
+export const UPDATE_USER = BASE_BACKEND_URL + '/users/profile/update';
 
 export const GET_PAPERS_API = BASE_BACKEND_URL + '/papers';
 export const GET_PAPER_API = BASE_BACKEND_URL + '/papers';

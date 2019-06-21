@@ -66,7 +66,7 @@ class NavBar extends React.Component {
                                 color='inherit'
                                 style={styles.heading}
                                 onClick={this.onClickHome}>
-                                iExamr
+                                iExamEr
                             </Button>
                         </div>
                         {!this.props.isAuth ?
