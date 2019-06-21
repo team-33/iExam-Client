@@ -9,10 +9,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 import {
     DELETE_USER_PROFILE,
-    GET_USER_PROFILE_DATA
+    GET_USER_PROFILE_DATA,
+    UPDATE_USER
 } from './../../URL';
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/es/TextField/TextField";
@@ -27,7 +29,7 @@ class ProfileSettings extends React.Component {
 
     componentDidMount() {
         axios.get(GET_USER_PROFILE_DATA)
-            .then(res => this.setState({user:res.data}))
+            .then(res => this.setState({user: res.data}))
             .catch(e => console.log(e))
     }
 
@@ -42,8 +44,19 @@ class ProfileSettings extends React.Component {
         this.toggleDeleteConfirmDialog(false)
     };
 
+    onUpdate = () => {
+        axios.post(UPDATE_USER, this.state.user).then(res => {
+            this.props.history.push('/users/profile');
+        }).catch(e => {
+
+        })
+    };
+
+    onTextChange = field => async e =>
+        this.setState({user: {...this.state.user, [field]: e.target.value}});
+
+
     render() {
-        console.log(this.state);
         return (
             <div>
                 {this.state.user !== "" ?
@@ -55,16 +68,19 @@ class ProfileSettings extends React.Component {
                             style={{width: '45%', margin: '0 2%'}}
                             label={"First Name"}
                             value={this.state.user.given_name}
+                            onChange={this.onTextChange('given_name')}
                         />
                         <TextField
                             style={{width: '45%', margin: '0 2%'}}
                             label={"Last Name"}
                             value={this.state.user.family_name}
+                            onChange={this.onTextChange('family_name')}
                         />
-                        <div style={{textAlign:'right',margin:"20px 35px"}}>
+                        <div style={{textAlign: 'right', margin: "20px 35px"}}>
                             <Button
                                 variant={"contained"}
-                                color={"primary"}>
+                                color={"primary"}
+                                onClick={() => this.onUpdate()}>
                                 Update
                             </Button>
                         </div>
@@ -115,4 +131,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, actions)(ProfileSettings);
+export default connect(mapStateToProps, actions)(withRouter(withRouter(ProfileSettings)));
