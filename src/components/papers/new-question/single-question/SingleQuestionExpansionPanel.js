@@ -1,8 +1,12 @@
 import React from 'react';
-import {Button, CircularProgress, Divider, TextField} from "@material-ui/core";
+import {Button, CircularProgress, Divider, FormControl, InputLabel, TextField} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import SaveIcon from '@material-ui/icons/Save';
 import {withRouter} from 'react-router-dom';
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import axios from 'axios';
+import {CHECK_QUESTION_API, ADD_QUESTION_API} from './../../../../URL';
 
 const styles = {
     questionPanel: {
@@ -18,6 +22,7 @@ class SingleQuestionExpansionPanel extends React.Component {
     state = {
         paper: this.props.location.state,
         question: {
+            number: 1,
             question: '',
             answer0: '',
             answer1: '',
@@ -26,6 +31,10 @@ class SingleQuestionExpansionPanel extends React.Component {
             answer4: '',
         }
     };
+
+    componentDidMount() {
+        if (!this.props.location.state) this.props.history.push('/');
+    }
 
     customTextElement = (number, question) =>
         <TextField
@@ -42,18 +51,44 @@ class SingleQuestionExpansionPanel extends React.Component {
         question ?
             await this.setState({question: {...this.state.question, question: e.target.value}}) :
             await this.setState({question: {...this.state.question, ['answer' + number]: e.target.value}});
-        console.log(this.state);
+    };
+
+    onChangeNumber = event => this.setState({
+        question: {
+            ...this.state.question,
+            [event.target.name]: event.target.value
+        }
+    });
+
+    onSave = async event => {
+        let res = await axios.post(ADD_QUESTION_API + '/' + this.state.paper._id, this.state.question);
+        // let res = await axios.get(CHECK_QUESTION_API + '/' + this.state.paper._id + "/" + this.state.question.number);
+        console.log(res);
     };
 
     render() {
-        console.log(this.state);
+        const {paper} = this.state;
         return (
             <Grid container>
                 <Grid item lg={3} md={3}/>
-                {this.state.paper ?
+                {paper ?
                     <Grid item lg={6} md={6} sm={12} xs={12} style={styles.questionPanel}>
                         <br/>
                         <h2>Add new Question</h2>
+                        <br/>
+                        <FormControl style={{width: '40%'}}>
+                            <InputLabel htmlFor="number">Question Number</InputLabel>
+                            <Select
+                                onChange={this.onChangeNumber}
+                                name='number'
+                                value={this.state.question.number}>
+                                {
+                                    new Array(paper.numberOfQuestions).fill().map((d, i) =>
+                                        <MenuItem key={i} value={i + 1}>{i + 1}</MenuItem>
+                                    )
+                                }
+                            </Select>
+                        </FormControl>
                         <br/><br/>
                         {this.customTextElement(99, true)}
                         <br/><br/>
@@ -71,7 +106,8 @@ class SingleQuestionExpansionPanel extends React.Component {
                         <br/><br/>
                         <div style={{textAlign: 'right'}}>
                             <Button variant={"contained"}
-                                    color={"primary"}>
+                                    color={"primary"}
+                                    onClick={this.onSave}>
 
                                 Save <SaveIcon/>
                             </Button>
@@ -82,8 +118,7 @@ class SingleQuestionExpansionPanel extends React.Component {
                 }
                 <Grid item lg={3} md={3}/>
             </Grid>
-        )
-            ;
+        );
     }
 }
 
