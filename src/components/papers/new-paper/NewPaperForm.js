@@ -81,7 +81,7 @@ class NewPaperForm extends React.Component {
         let res = await this.insertPaper();
         await this.setState({dialogOpen: false});
         if (res) {
-            const url = '/papers/' + res.data.subject + '/' + res.data.year + '/' + res.data._id;
+            const url = '/papers/get/' +  res.data._id;
             this.props.history.push(url)
         } else {
             alert(this.props.error);
